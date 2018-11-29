@@ -1,0 +1,86 @@
+#modalAdmin .close{
+	font-size: 25px;
+	color: #fff;
+	text-shadow: 0 1px 0 #000;
+	filter: alpha(opacity=20);
+	opacity: .8;
+	cursor: pointer;
+}
+#modalAdmin .close:hover,.close:focus {
+	font-size: 25px;
+	color: #f00;
+	text-shadow: 0 1px 0 #000;
+	filter: alpha(opacity=20);
+	opacity: .8;
+    cursor: pointer;
+}
+#modalAdmin .imagen {
+   	text-align: center;
+   	margin: 28px 0 12px 0;
+   	position: relative;
+}
+#modalAdmin img.logo {
+  		width: 50%;
+}
+#modalAdmin .contenedor > input[type=text], input[type=password]{
+	background-color: #fff5d7;
+	color: #335f7d;
+	font-weight:bold;
+	width: 80%;
+    text-align: center;
+    margin: 8px 0;
+    margin-left: 10%;
+    padding: 8px 18px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+#modalAdmin .modal-contenido {
+    background-color: #335f7d;
+    margin: 15% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 45%; /* Full width */
+    height: 70%; /* Full height */
+    
+}
+#modalAdmin .contenedor {
+    padding: 16px;
+}
+#modalAdmin .contenedor-color {
+    background-color:#e6e6e6;
+}
+
+#contenedor-btn > button{
+	/*background-color: #4CAF50;*/
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+#contenedor-btn > button:hover {
+    opacity: 0.8;
+}
+#contenedor-btn > .aceptabtn {
+    width: 50%;
+    margin-left: 25%;
+    padding: 12px 20px;
+    color: white;
+    cursor : pointer;
+    background-color: #335f7d/*#4CAF50*/;
+}
+/*Configuracion para dispositivos mas pequeños*/
+@media screen and (max-width: 767px) {
+	#modalAdmin .imagen {
+   		text-align: center;
+   		margin-right: 40px;
+   		position: relative;
+	}
+	#modalAdmin img.logo {
+  		width: 45%;
+	}
+	#contenedor-btn > .aceptabtn {
+    	background-color: #335f7d/*#4CAF50*/;
+	}
+}

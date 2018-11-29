@@ -1,0 +1,23 @@
+#contenido{
+	margin-top: 20px;
+	height: auto;
+}
+#panelParam,
+#datosHorario{
+	margin-left: 127px;
+}
+#panel-body-Tipo-Cita{
+	margin-left: 127px;
+}
+#panelEspecialidades{
+	margin-top: 20px;
+	margin-left: 112px;
+}
+#panel-body-Turno{
+	margin-top: 20px;
+	width: 354px;
+}
+#generaHorario{
+	margin-top: 50px;
+	margin-left: 46.2%;
+}

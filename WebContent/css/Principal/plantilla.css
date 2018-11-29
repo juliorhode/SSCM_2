@@ -1,0 +1,128 @@
+/*@media screen and (max-width: 1681px) and (min-width: 1371px){*/
+	.flex-container {
+		flex-wrap: nowrap;
+	}
+	.flex-container > div {
+		height: auto;
+		width: 85%;
+		margin: 10px;
+		text-align: center;
+		line-height: 45px;/*Entrelineado de los titulos (separacion entre uno y otro)*/
+		font-size: 20px;
+	}
+	.well {
+	  padding: 10px 2px 2px 2px;
+	  margin-bottom: 10px;
+	  background-color: #f5f5f5;
+	  border: 1px solid #e3e3e3;
+	  border-radius: 4px;
+	  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	}
+	/*Configuracion del header*/
+	.navbar {
+	  	margin-bottom: 0;
+	  	border-radius: 0;
+	  	background-color: #335f7d ;
+	  	border-style:none;
+	  	height: 160px;
+	}
+    /*Configuracion de las propiedades de los laterales*/
+	.sidenav {
+		padding-top: 20px;
+		background-color: #335f7d;
+		height: 100%;
+		
+	}
+	/*Configuracion texto lateral izquierdo*/
+	.sidenav p{color: #335f7d;font-weight: bold;}
+	/*Configuracion del pie de pagina*/
+	footer {
+	  	background-color: #555;
+	  	color: white;
+	  	padding: 15px;
+	  	
+	}
+    /*Alto de los laterales*/  
+	.row.content {height: 688px;}
+	/*.row.content {height: 688px;}*/
+	#lateral_der,#listado_cita{display: none;}
+/*}*/
+
+@media screen and (max-width: 1370px) and (min-width: 800px){
+	.flex-container {
+		flex-wrap: nowrap;
+	}
+	.flex-container > div {
+		height: auto;
+		width: 85%;
+		margin: 10px;
+		text-align: center;
+		line-height: 45px;/*Entrelineado de los titulos (separacion entre uno y otro)*/
+		font-size: 20px;
+	}
+	.well {
+	  padding: 10px 2px 2px 2px;
+	  margin-bottom: 10px;
+	  background-color: #f5f5f5;
+	  border: 1px solid #e3e3e3;
+	  border-radius: 4px;
+	  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	}
+	/*Configuracion del header*/
+	.navbar {
+	  	margin-bottom: 0;
+	  	border-radius: 0;
+	  	background-color: #335f7d ;
+	  	border-style:none;
+	  	height: 160px;
+	}
+    /*Configuracion de las propiedades de los laterales*/
+	.sidenav {
+		padding-top: 20px;
+		background-color: #335f7d;
+		height: 100%;
+		
+	}
+	/*Configuracion texto lateral izquierdo*/
+	.sidenav p{color: #335f7d;font-weight: bold;}
+	/*Configuracion del pie de pagina*/
+	footer {
+	  	background-color: #555;
+	  	color: white;
+	  	padding: 15px;
+	  	
+	}
+    /*Alto de los laterales*/  
+	.row.content {height: 436px;}
+	#lateral_der,#listado_cita{display: none;}
+	#cuerpo{height:435px;}
+}
+
+@media screen and (max-width: 799px) {
+	.navbar{
+    	background-color: #335f7d;
+    	border-style:none;
+    	height: auto;
+    }
+    .sidenav {
+        height: auto;
+        padding: 15px;
+        
+    }
+    .row.content {height:auto;} 
+    img{
+  		display: block;
+  		margin-left: 33%;
+  		margin-right: auto;
+    }
+    #lateral_d{display: none;}
+    h2,h3{
+      display: none;
+    }
+   
+}
+	
+    
+

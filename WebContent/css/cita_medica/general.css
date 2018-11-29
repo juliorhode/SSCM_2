@@ -1,0 +1,46 @@
+#panelCitas{margin-top: 20px;}
+/****************************/
+/***Color para los paneles***/
+/****************************/
+.panel-default > .panel-heading {background-color: #335f7d;}
+/***************************************/
+/***Color para titulos de los paneles***/
+/***************************************/
+.panel-heading > h4{color: white;font-weight: bold;}
+/*************************/
+/***Color a los botones***/
+/*************************/	
+.btn-primary{background-color: #335f7d;color: white;font-weight: bold;}
+.btn-primary:hover{background-color: #437ca3;}
+/***************************************/
+/***Oculto el panel de los familiares***/
+/***************************************/	
+#panel-group-Familiares{display: none;height:auto;}
+
+/*******************************/
+/***Organizacion de los radio***/
+/*******************************/
+#panel-body-Tipo-Cita-radios > label:nth-child(1){padding-left: 30px;padding-right: 20px;}
+#panel-body-Tipo-Cita-radios > label:nth-child(2){padding-right: 20px;}
+#panel-body-Tipo-Cita-radios > label:nth-child(3){padding-right: 20px;}
+#panel-body-Tipo-Cita-radios > label:nth-child(4){padding-right: 20px;}
+
+#panel-body-Tipo-Turno-radios > label:nth-child(1){padding-left: 30px;padding-right: 20px;}
+#panel-body-Tipo-Turno-radios > label:nth-child(2){padding-right: 20px;}
+
+#panel-group-horario,#panel-group-Botones{display: none;}
+
+
+	
+	
+@media screen and (max-width: 767px) {
+	/*******************************/
+	/***Organizacion de los radio***/
+	/*******************************/
+	#panel-body-Tipo-Cita-radios > label:nth-child(1){padding-right: 30px;}
+	#panel-body-Tipo-Cita-radios > label:nth-child(2){padding-right: 30px;}
+	#panel-body-Tipo-Cita-radios > label:nth-child(3){padding-left: 30px;padding-right: 20px;}
+	#panel-body-Tipo-Cita-radios > label:nth-child(4){padding-right: 40px;}
+	
+	#tipoSolicitud,#FechaSolicitud{width: 200px;}
+}

@@ -1,0 +1,90 @@
+	#panelParametrosTipo{margin-left:-120px;margin-top: 10px;}
+ 	#panelParametrosTipo .panel-body{height: 80px;}
+ 	
+ 	#panelParametrosEspecialista-Fecha,
+ 	#panelParametros-busqueda{margin-left: 100px;margin-top: 10px; width: auto;}
+ 	
+ 	#Contenedor-Panel{margin-left: -130px;width: 1400px;}
+ 	#Contenedor-Panel .panel-body{height: 480px;}
+ 	
+ 	#historialCitas{margin-left: -20px;width: 1350px;}*/
+ 	
+ 	#txtbusqueda{width: 380px;text-align: center;}
+ 	
+ 	/***********************************/
+	/***Bloqueo del header y del body***/
+	/***********************************/
+	
+	thead, tbody {display: block;}
+	
+	tbody{height: 380px;/*para el scroll*/ overflow-y: auto;}
+	
+	thead > tr > th {background-color: #335f7d;color: white;font-weight: bold;text-align: center;}
+	th, td{font-size: 14px;}
+	
+	/**************************************/
+	/***Ajuste del ancho de las columnas***/
+	/**************************************/
+	
+	th:nth-child(1), td:nth-child(1) {width: 80px;text-align: center;}
+	th:nth-child(2), td:nth-child(2) {width: 80px;text-align: center;}
+	th:nth-child(3), td:nth-child(3) {width: 80px;text-align: center;}
+	th:nth-child(4), td:nth-child(4) {width: 200px;text-align: center;}
+	th:nth-child(5), td:nth-child(5) {width: 80px;text-align: center;}
+	th:nth-child(6), td:nth-child(6) {width: 200px;text-align: center;}
+	th:nth-child(7), td:nth-child(7) {width: 110px;text-align: center;}
+	th:nth-child(8), td:nth-child(8) {width: 60px;text-align: center;}
+	th:nth-child(9), td:nth-child(9) {width: 90px;text-align: center;}
+	th:nth-child(10), td:nth-child(10) {width: 90px;text-align: center;}
+	th:nth-child(11), td:nth-child(11) {width: 200px;text-align: center;}
+	
+	
+@media only screen and (max-width: 1367px) and (max-height: 769px) {
+    
+    #panelParametrosTipo{margin-left: -20px;}
+ 	#panelParametrosTipo .panel-body{height: 80px;}
+ 	
+ 	#panelParametrosEspecialista-Fecha,
+ 	#panelParametros-busqueda{margin-left: 5px;margin-top: 10px;}
+ 	
+ 	#Contenedor-Panel{margin-left: -30px;width: 1100px;}
+ 	#Contenedor-Panel .panel-body{height: 240px;}
+ 	
+ 	#historialCitas{margin-left: -20px;width: 1070px;}
+ 	
+ 	#txtbusqueda{width: 300px;text-align: center;}
+ 	
+ 	/***********************************/
+	/***Bloqueo del header y del body***/
+	/***********************************/
+	thead, tbody {display: block;}
+	
+	tbody{height: 170px;/*para el scroll*/overflow-y: auto;}
+	thead > tr > th {background-color: #335f7d;color: white;font-weight: bold;text-align: center;}
+	th, td{font-size: 10px;}
+	
+	/**************************************/
+	/***Ajuste del ancho de las columnas***/
+	/**************************************/
+	
+	th:nth-child(1), td:nth-child(1) {width: 60px;text-align: center;}
+	th:nth-child(2), td:nth-child(2) {width: 60px;text-align: center;}
+	th:nth-child(3), td:nth-child(3) {width: 70px;text-align: center;}
+	th:nth-child(4), td:nth-child(4) {width: 160px;text-align: center;}
+	th:nth-child(5), td:nth-child(5) {width: 70px;text-align: center;}
+	th:nth-child(6), td:nth-child(6) {width: 160px;text-align: center;}
+	th:nth-child(7), td:nth-child(7) {width: 90px;text-align: center;}
+	th:nth-child(8), td:nth-child(8) {width: 50px;text-align: center;}
+	th:nth-child(9), td:nth-child(9) {width: 70px;text-align: center;}
+	th:nth-child(10), td:nth-child(10) {width: 70px;text-align: center;}
+	th:nth-child(11), td:nth-child(11) {width: 160px;text-align: center;}
+	
+}
+
+@media only screen and (max-width: 799px) {
+	#panelParametrosTipo{margin-left:-20px;margin-top: 10px;width: 200px;}
+ 	#panelParametrosTipo .panel-body{height: auto;}
+ 	
+ 	#panelParametrosEspecialista-Fecha{position:absolute; margin-top: -188px;margin-left:160px; width: auto;}
+ 	#panelParametrosEspecialista-Fecha .panel-body{height: auto;}
+}	
