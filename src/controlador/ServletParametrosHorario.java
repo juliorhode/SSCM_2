@@ -125,7 +125,7 @@ public class ServletParametrosHorario extends HttpServlet {
 				 **********************************************************************************************/
 				if (flag == true) {
 					horario = modeloParametros.getHorario(param);
-					out.println("<div class='col-sm-6' style='margin-left: 25%;'>");
+					out.println("<div class='col-sm-12' style='margin-top: -50%;margin-left: 35%; position: absolute;'>");
             		out.println("<div class='alert alert-success alert-dismissable fade in' align='center'>");
             		out.println("<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>");
             		out.println("<strong> Se ha almacenado con exito el nuevo horario!!! </strong>");
@@ -152,7 +152,7 @@ public class ServletParametrosHorario extends HttpServlet {
             		+ "</script>");
 	            }else {
 	            	out.println("<br>");
-	            	out.println("<div class='col-sm-7'>");
+	            	out.println("<div class='col-sm-11'>");
 	            	out.println("<div class='alert alert-danger alert-dismissable fade in' align='center'>");
 		            out.println("<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>");
 		            out.println("<strong> No se pudo almacenadar el nuevo horario!!! </strong>");

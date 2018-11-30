@@ -115,7 +115,7 @@
 						</div>
 						<div align="center" class="panel-body" id="panel-body-Motivo"> 
 							<div class='form-group'>
-								<input type='text' id='txtMotivo'  class='form-control' name='txtMotivo' ">
+								<input type='text' id='txtMotivo' style="text-transform: capitalize;"  class='form-control' name='txtMotivo'">
 							</div>			
 						</div><!--Fin panel-body-->
 					</div><!--Fin panel panel-default-->
@@ -204,5 +204,8 @@
 /*Para el item del día del mes seleccionado */
 /*.ui-datepicker .ui-state-active{background: orange;color: #FFFFFF;}*/
 
+#btnProcesar{
+	margin-top: 5%;
+}
 
 </style>

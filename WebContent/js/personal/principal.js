@@ -84,9 +84,13 @@ function cedulaModal(){
 		      Info Lateral derecho
 			 **********************************/
 	    	$("#lateral_der").html( result );
-	    	$("#lateral_der").show();
-	    	$("#listado_cita").show();
-	    	$("#listadoCita").show();
+	    	/*
+	    	if($("#cambioUsuario").val() != ""){
+	    		$("#lateral_der").show();
+		    	$("#listado_cita").show();
+		    	$("#listadoCita").show();
+	    	}
+	    	*/
 
 	    	if ( screen.width > 800 && screen.width <= 1370){
     			var ancho = $( window ).width();

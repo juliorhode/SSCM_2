@@ -105,11 +105,17 @@ $("#no").click(function(){
 	buscaEspecialista();
 	$("#mensajeCita").modal("hide");
 	$("#Solicitante").val("EMP");
-	alert("La cita será programada para el empleado.");
+
+	$.alert({
+		title: 'Registro de Emergencia',
+		content: 'La Emergencia será programada para el empleado.',
+		type: 'red',
+		theme: 'bootstrap'
+	});
 	/*************************************
 			REAJUSTE CSS DEL LATERAL
 	 **************************************/
-	//$("#laterales").height(750);
+	$("#laterales").height(688);
 });//Fin $("#no").click(function()
 function buscaEspecialista() {
 	var tipoCita 		= $('input:radio[name=otpTipoCita]:checked').val();	

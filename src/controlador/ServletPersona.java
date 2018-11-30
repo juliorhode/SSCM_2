@@ -92,7 +92,8 @@ public class ServletPersona extends HttpServlet {
 				            out.println("</div>");
 				            out.println("</div>");
 				            */
-				            out.println("<script> $('#cuerpo').empty();</script>");
+							
+				            out.println("<script> $('#cuerpo').empty();$('#lateral_der').hide();$('#listado_cita').hide();$('#listadoCita').hide();</script>");
 						}else {
 							for(int i = 0; i < emp.size(); i++) {
 								out.println("<style> #lateral_der > input[type=text]{font-size: 12px;text-align: center;font-weight: bold;}</style>");
@@ -110,7 +111,7 @@ public class ServletPersona extends HttpServlet {
 								out.println("<br>");
 								out.println("<br>");
 								out.println("<input type='button' class='btn btn-primary' value='Cambio Usuario' id='cambioUsuario' style='margin-left:5%;'>");
-								out.println("<script>$('#cuerpo').load('JSP/Usuario/CitasMedicas.jsp');</script>");
+								out.println("<script>$('#cuerpo').load('JSP/Usuario/CitasMedicas.jsp');$('#lateral_der').show();$('#listado_cita').show();$('#listadoCita').show();</script>");
 							}
 						}
 					} catch (Exception e) {

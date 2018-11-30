@@ -1,3 +1,41 @@
+$("#generaHorario").hide();
+
+
+$("#nu_citas").click(function(){
+		var a = document.getElementById("hora_inicio");
+		if(parseInt(a.value) < 12){
+			console.log("Es en la mañana");
+			$("input[value='AM']:radio").prop('checked', true);
+			$("input[value='AM']:radio").removeAttr("disabled");
+			$("input[value='PM']:radio").prop('checked', false);
+			$("input[value='PM']:radio").attr("disabled","disabled");
+			
+		}else{
+			console.log("Es en la tarde");
+			$("input[value='AM']:radio").prop('checked', false);
+			$("input[value='AM']:radio").attr("disabled","disabled");
+			$("input[value='PM']:radio").prop('checked', true);
+			$("input[value='PM']:radio").removeAttr("disabled");
+		}
+});
+
+$("#panel-body-Tipo-Cita input").click(function(){
+	console.log("hola");
+	
+	var hora_inicio = $("#hora_inicio").val();
+	var nu_citas = $("#nu_citas").val();
+	var especialidades = $('input:radio[name=in_especialidad]:checked').val();
+	var nu_intervalo = $("#nu_intervalo").select().val();
+	
+	if(hora_inicio!="" && nu_citas!="" && nu_intervalo!=""){
+		$("#generaHorario").show();
+	}else{
+		$("#generaHorario").hide();
+	}
+	
+});
+
+
 function timePicker(){
 	$("#hora_inicio").timepicker({
 	    timeFormat: 'HH',
@@ -21,7 +59,10 @@ function timePicker(){
 	    scrollbar: true
 	    
 	});
+	
 }
+
+
 
 function horario(){
 	var hora_inicio = $("#hora_inicio").val();

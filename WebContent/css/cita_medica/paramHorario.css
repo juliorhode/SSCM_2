@@ -2,6 +2,15 @@
 	margin-top: 20px;
 	height: auto;
 }
+
+#nu_intervalo > option{
+	background-color: white;
+}
+/*
+#contenido{
+	margin-top: 20px;
+	height: auto;
+}
 #panelParam,
 #datosHorario{
 	margin-left: 127px;
@@ -21,3 +30,4 @@
 	margin-top: 50px;
 	margin-left: 46.2%;
 }
+*/
