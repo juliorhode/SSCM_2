@@ -1,5 +1,5 @@
 $("#generaHorario").hide();
-
+$("input[name='in_especialidad']:radio").attr("disabled","disabled");
 
 $("#nu_citas").click(function(){
 		var a = document.getElementById("hora_inicio");
@@ -17,6 +17,17 @@ $("#nu_citas").click(function(){
 			$("input[value='PM']:radio").prop('checked', true);
 			$("input[value='PM']:radio").removeAttr("disabled");
 		}
+});
+
+$("#nu_intervalo").change(function(){
+	if($("#nu_intervalo").val()!=""){
+		$("input[name='in_especialidad']:radio").removeAttr("disabled");	
+	}else{
+		$("input[name='in_especialidad']:radio").attr("disabled","disabled");
+		$("input[name='in_especialidad']:radio").prop('checked', false);
+		$("#generaHorario").hide();
+	}
+	
 });
 
 $("#panel-body-Tipo-Cita input").click(function(){

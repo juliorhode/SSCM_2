@@ -12,7 +12,7 @@ $(document).ready(function(){
 								
 <div class="container">
   	
-  <div class="col-sm-4" id="panelParametrosTipo">
+  <div class="col-sm-5" id="panelParametrosTipo">
 	<div class="panel-group">
 		<div class="panel panel-default">
 		  <div class="panel-heading">
@@ -23,14 +23,19 @@ $(document).ready(function(){
 		  
 			<div class="panel-body" >
 				<div class="radio">
-					<div class="col-sm-6">
+					<div class="col-sm-4">
 						<label><input type="radio" name="otpTipoCita" value="M">Médicas</label>
 						<label><input type="radio" name="otpTipoCita" value="O">Odontológicas</label>
 					</div><!-- Fin  col-sm-6 -->
-  					<div class="col-sm-6">
+					<div class="col-sm-4">
+						<label><input type="radio" name="otpTipoCita" value="N">Nutrición</label>
+						<label><input type="radio" name="otpTipoCita" value="F">Fisioterapia</label>
+					</div><!-- Fin  col-sm-6 -->
+  					<div class="col-sm-4">
 						<label><input type="radio" name="otpTipoCita" value="E">Emergencias</label>
 						<label><input type="radio" name="otpTipoCita" value="T">Todas</label>
 					</div><!-- Fin  col-sm-6 -->
+					
 					
 				</div><!-- Fin  class="radio" -->
 			</div><!-- Fin  panel-body -->
@@ -39,7 +44,7 @@ $(document).ready(function(){
  	</div><!-- Fin  panel-group -->
   </div><!-- Fin  col-sm-4 -->
 
-  <div class="col-sm-4" id="panelParametrosEspecialista-Fecha" >
+  <div class="col-sm-3" id="panelParametrosEspecialista-Fecha" >
 	<div class="panel-group">
 		<div class="panel panel-default">
 		  <div class="panel-heading">
@@ -48,17 +53,15 @@ $(document).ready(function(){
 			</h4>
 		  </div>
 		  
-			<div class="panel-body"  style="height: 80px">
-				<div class="col-sm-6">
-					<input type="text" name="FechaSolicitud" class="btn btn-default" id="FechaSolicitud" placeholder="Seleccione fecha">
-				</div>
-			</div>
+		  <div class="panel-body"  style="height: 80px">
+			<input type="text" name="FechaSolicitud" class="btn btn-default" id="FechaSolicitud" placeholder="Fecha" style="width: 150px;">
+		  </div>
    			
 		</div>
  	</div>
   </div>
 
-  <div class="col-sm-4" id="panelParametros-busqueda" >
+  <div class="col-sm-3" id="panelParametros-busqueda" >
 	<div class="panel-group">
 		<div class="panel panel-default">
 		  <div class="panel-heading">
@@ -69,7 +72,7 @@ $(document).ready(function(){
 		  
 			<div class="panel-body"  style="height: 80px">
 				<div class="col-sm-12">
-					<input type="text" name="txtbusqueda"  class="form-control" id="txtbusqueda" placeholder="Introduzca valor para busqueda">
+					<input type="text" name="txtbusqueda"  class="form-control" id="txtbusqueda" placeholder="Introduzca valor a buscar">
 				</div>
 			</div>
   

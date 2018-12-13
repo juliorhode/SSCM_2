@@ -307,6 +307,11 @@ $("#btnProcesar").click(function(){
         },
         success: function( result ) {
         	$("#Modal").html( result );
+        	if ( $(window).width() <= 1367 ){
+				$("#laterales").css("height","436px");
+			}else{
+				$("#laterales").css("height","688px");
+			}
         }
     });
 	$('#cuerpo').load('JSP/Usuario/CitasMedicas.jsp');

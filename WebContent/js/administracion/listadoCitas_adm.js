@@ -65,3 +65,6 @@ $("#txtbusqueda").on("keyup", function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
 });
+
+//http://172.24.70.110:7001/JasperReport/index.jsp
+//display: none;

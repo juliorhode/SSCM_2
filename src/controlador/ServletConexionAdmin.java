@@ -78,6 +78,10 @@ public class ServletConexionAdmin extends HttpServlet {
 			
 			if(sesion.getAttribute("usuario") == null) {
 				sesion.invalidate();
+				if(conexion!= null) {
+					conexion.close();
+					System.out.println("Se cerró la conexion");
+				}
 				try {
 					System.out.println("1) No existe conexion");
 					System.out.println("2) Obtenemos el JDNI");
@@ -106,6 +110,10 @@ public class ServletConexionAdmin extends HttpServlet {
 				}
 			}else {
 				if(conexion!=null) {
+					if(conexion!= null) {
+						conexion.close();
+						System.out.println("Se cerró la conexion");
+					}
 					sesion = request.getSession();
 					System.out.println("1) Existe conexion");	
 					sesion.setAttribute("pool", conexion);

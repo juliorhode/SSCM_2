@@ -2,14 +2,14 @@
  	#panelParametrosTipo .panel-body{height: 80px;}
  	
  	#panelParametrosEspecialista-Fecha,
- 	#panelParametros-busqueda{margin-left: 100px;margin-top: 10px; width: auto;}
+ 	#panelParametros-busqueda{margin-left: 100px;margin-top: 10px;}
  	
  	#Contenedor-Panel{margin-left: -130px;width: 1400px;}
  	#Contenedor-Panel .panel-body{height: 480px;}
  	
  	#historialCitas{margin-left: -20px;width: 1350px;}*/
  	
- 	#txtbusqueda{width: 380px;text-align: center;}
+ 	#txtbusqueda{width: 420px; text-align: center;}
  	
  	/***********************************/
 	/***Bloqueo del header y del body***/
@@ -52,7 +52,7 @@
  	
  	#historialCitas{margin-left: -20px;width: 1070px;}
  	
- 	#txtbusqueda{width: 300px;text-align: center;}
+ 	#txtbusqueda{width: 200px;text-align: center;}
  	
  	/***********************************/
 	/***Bloqueo del header y del body***/

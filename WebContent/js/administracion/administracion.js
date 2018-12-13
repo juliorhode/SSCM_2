@@ -16,10 +16,7 @@ function inicio(){
 	});
 	
 	$("#cargaUnica").click(function(){
-		if( $("#usuario").val("juferrer")){
 			$("#cuerpo").load('JSP/Admin/ParametroHorarioUnica.jsp');
-		}
-		
 	});
 		
 	$("#cargaIndividual").click(function(){
@@ -32,6 +29,10 @@ function inicio(){
 	
 	$("#listadoProgramadas").click(function(){
 		$("#cuerpo").load('JSP/Admin/HistorialCitasAdmin.jsp');
+	});
+	
+	$("#imprimeReporte").click(function(){
+		$("#cuerpo").load('JSP/Reporte/ImpresionReporte.jsp');
 	});
 	
 	

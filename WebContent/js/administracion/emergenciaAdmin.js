@@ -205,22 +205,12 @@ $("#btnProcesar").click(function(){
 		},
 		success: function( result ) {
 			$("#Modal").html( result );
-			//$("#Modal").html( result );
-				//alert(result);
-				if (result = 1){
-					$("#Modal").html( result );
-				}else{
-					$("#Modal2").html( result );
-				}
-					
-					//alert("Emergencia registrada");
-					
-				//}else{
-					//alert("Emergencia no registrada");
-					
-					//$('#mensajeModalFalse').modal('show');
-				//}
-			
+			/**********Reajuste CSS**************/
+			if ( $(window).width() <= 1367 ){
+				$("#laterales").css("height","436px");
+			}else{
+				$("#laterales").css("height","688px");
+			}
 		}//Fin success: function( result )
 	});//Fin $.ajax()
 

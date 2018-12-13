@@ -376,7 +376,7 @@ public class DatosCitaMedica{
 				case "E":
 					tipo_cita = "Emergencia";
 					if(fecha_cita != null) {
-						citaSQL = sql + "where nb_ti_solicitud = ? and fe_cita = ? order by nu_solicitud asc";
+						citaSQL = sql + "where nb_ti_solicitud = ? and fe_cita = to_date(?,'DD/MM/YYYY') order by nu_solicitud asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, tipo_cita);
 						pst_buscaCita.setString(2, fecha_cita);
@@ -388,7 +388,7 @@ public class DatosCitaMedica{
 					break;
 				case "T":
 					if(fecha_cita != null) {
-						citaSQL = sql + "where fe_cita = ? order by nu_solicitud asc";
+						citaSQL = sql + "where fe_cita = to_date(?,'DD/MM/YYYY') order by nu_solicitud asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, fecha_cita);
 					}else {
@@ -399,7 +399,7 @@ public class DatosCitaMedica{
 				case "M": 
 				case "O":
 					if(fecha_cita != null) {
-						citaSQL = sql + "where in_especialidad = ? and nb_ti_solicitud!='Emergencia' and fe_cita = ? order by nu_solicitud asc";
+						citaSQL = sql + "where in_especialidad = ? and nb_ti_solicitud!='Emergencia' and fe_cita = to_date(?,'DD/MM/YYYY') order by nu_solicitud asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, tipo_cita);
 						pst_buscaCita.setString(2, fecha_cita);

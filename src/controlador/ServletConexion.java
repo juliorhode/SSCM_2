@@ -32,6 +32,11 @@ public class ServletConexion extends HttpServlet {
 		try {
 			sesion = request.getSession();
 			if(sesion.getAttribute("usuario")!=null) {
+				if(conexion!= null) {
+					conexion.close();
+					System.out.println("Se cerró la conexion");
+				}
+				sesion.setAttribute("usuario", null);
 				sesion.invalidate();
 				
 				System.out.println("1) No existe conexion");
@@ -57,6 +62,10 @@ public class ServletConexion extends HttpServlet {
 				System.out.println("4) Redireccionamos a la pagina principal");
 				request.getRequestDispatcher("JSP/Usuario/index.jsp").forward(request, response);
 			}else {
+					if(conexion!= null) {
+						conexion.close();
+						System.out.println("Se cerró la conexion");
+					}
 					/*Servidor Apache*/
 					/*
 					initialcontext = new InitialContext();

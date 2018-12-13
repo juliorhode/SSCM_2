@@ -117,7 +117,22 @@
 		      	</div> -->
 		      	
 		      	<div class="well">
-		      		<p><a href="#;" id="listadoProgramadas" >Agenda de Citas</a></p>
+		      		<p data-toggle="collapse" href="#agenda">Agenda Médica</p>
+					<div id="agenda" class="panel-collapse collapse">
+						<ul class="list-group">
+							<li class="list-group-item" ><a href="#;" id="listadoProgramadas" >Listado</a></li>
+							<div class="well">
+		      					<p data-toggle="collapse" href="#reporte">Reportes</p>
+								<div id="reporte" class="panel-collapse collapse">
+									<ul class="list-group">
+										<li class="list-group-item" ><a href="#;" id="imprimeReporte" >Impresión</a></li>
+									</ul>
+								</div>
+		      				</div>
+							<!-- <li class="list-group-item" ><a href="#;" id="cargaIndividual" >Carga Individual</a></li> -->
+							<!-- <li class="list-group-item" ><a href="#;" id="eliminaHorarios" >Horarios</a></li> -->
+						</ul>
+					</div>
 		      	</div>
 	    	</div>
 	    	<!-- Se carga con respecto a la seleccion del menú izquierdo -->
