@@ -16,18 +16,16 @@
 				<h4 align="center" class="panel-title">Impresión de Reporte</h4>
 			</div>
 			<div class="panel-body">
+			<form action="ServletReporte" method="post" target="_blank">
 				<label for="FechaSolicitud">Reporte Agenda por Fecha</label><br>				
 				<input type="text" name="FechaSolicitud" class="btn btn-default" id="FechaSolicitud" placeholder="Fecha" style="width: 150px; ">
-				<a href="#" id="imprimeFecha" target="_blank">
-					<button id="btnPDF" class="btn btn-default">
-						<span class="glyphicon glyphicon-print" style="width: 20px;height: 10px;"></span>
-					</button>
-				</a>
+				<input type="submit" id="btnPDF" class="btn btn-default">
+			</form>
 			</div><!--Fin panel-body-->
 		</div><!--Fin panel panel-default-->
 	</div><!--Fin panel-group-->
 </div>
-				
+<div id ="prueba"></div>				
 
 
 
@@ -48,9 +46,5 @@ $("#FechaSolicitud").change(function(){
 	}
 });
 
-$("#imprimeFecha").click(function(){
-	var fecha = $("#FechaSolicitud").val();
-	window.open('JSP/Reporte/ReporteFecha.jsp?fecha=' + fecha, 'Reporte Agenda','width=600,height=600,top=100,left=300');
-});
 
 </script>
