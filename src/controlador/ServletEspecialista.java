@@ -43,6 +43,10 @@ public class ServletEspecialista extends HttpServlet {
 		tipo = request.getParameter("tipo");
 		turno = request.getParameter("turno");
 		
+		tipoCita = request.getParameter("tipoCita");
+		medico   = request.getParameter("medico");
+		fecha    = request.getParameter("fecha");
+		
 		int hora, minutos;
 		Calendar calendario = new GregorianCalendar();
 		hora 				= calendario.get(Calendar.HOUR_OF_DAY);
@@ -58,9 +62,7 @@ public class ServletEspecialista extends HttpServlet {
 			}else {
 				switch (param) {
 					case "agendaCitas"://La que le aparece al DAME
-						String tipoCita = request.getParameter("tipoCita");
-						String medico   = request.getParameter("medico");
-						String fecha    = request.getParameter("fecha");
+						
 						DatosCitaMedica agenda = new DatosCitaMedica(conexion);
 						try {
 							cita = agenda.getListado(tipoCita, fecha, medico);
@@ -77,6 +79,11 @@ public class ServletEspecialista extends HttpServlet {
 							log.info(errors.toString());
 						}
 					break;
+					case "reporteTemp":
+						DatosCitaMedica agendaTemp = new DatosCitaMedica(conexion);
+						cita = agendaTemp.getListado(tipoCita, fecha, medico);
+						agendaCitasTemp(request,response,cita,conexion);
+					break;	
 					case "anulacionCita":
 						cedulaEmpleado = Integer.parseInt(request.getParameter("cedulaEmp"));
 						solicitud = request.getParameter("nuSolicitud");
@@ -243,6 +250,45 @@ public class ServletEspecialista extends HttpServlet {
 	}
 		
 			
+	private void agendaCitasTemp(HttpServletRequest request, HttpServletResponse response, List<Cita> cita, Connection conexion) {
+			try (PrintWriter out = response.getWriter()){
+				try {
+					for(int i = 0; i < cita.size(); i++) {
+						out.println("<tr>");
+							out.println("<td>" + cita.get(i).getCi_empleado()   + "</td>");
+							out.println("<td>" + cita.get(i).getNb_empleado()   + "</td>");
+							out.println("<td>" + cita.get(i).getCi_familiar()   + "</td>");
+							out.println("<td>" + cita.get(i).getNb_familiar()   + "</td>");
+							out.println("<td>" + cita.get(i).getFe_cita()       + "</td>");
+							if(cita.get(i).getHh_cita() == null){
+								out.println("<td>0</td>");
+							} else {
+								out.println("<td>" + cita.get(i).getHh_cita() + "</td>");
+							}
+							
+							
+							DatosMedico especialistas = new DatosMedico(conexion);
+							String nombreMedico = especialistas.getNombreCompleto(cita.get(i).getCi_especialista());
+							out.println("<td>" + nombreMedico 					+ "</td>");
+							out.println("<td>" + cita.get(i).getNb_ti_solicitud() + "</td>");
+						out.println("</tr>");
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					StringWriter errors = new StringWriter();
+					e.printStackTrace(new PrintWriter(errors));
+					log.info(errors.toString());
+				}
+			} catch (IOException e1) {
+				try {
+					response.sendRedirect("Error/error.jsp");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}	
+	}
+
 			/*****************************************************************/
 			/************** VERIFICAMOS SI EXISTE UN AUSENTISMO **************/
 			/*****************************************************************/
@@ -451,9 +497,12 @@ public class ServletEspecialista extends HttpServlet {
 	private int cedulaMedico;
 	private String fechaCita;
 	private String turno;
+	private String tipoCita;
+	private String medico;
+	private String fecha;
 	
 	private List<Medico> esp;
-	List<Cita> cita;
+	private List<Cita> cita;
 	private ArrayList<String> horaMedico;
 	private ParametroCita paramCita;
 	private Connection conexion;

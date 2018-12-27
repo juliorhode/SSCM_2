@@ -410,6 +410,12 @@ public class DatosCitaMedica{
 					}
 					break;
 				}
+			}else {
+				if(fecha_cita != null) {
+					citaSQL = sql + "where fe_cita = to_date(?,'DD/MM/YYYY') order by nu_solicitud asc";
+					pst_buscaCita = con.prepareStatement(citaSQL);
+					pst_buscaCita.setString(1, fecha_cita);
+				}
 			}
 			
 			cursor = pst_buscaCita.executeQuery();

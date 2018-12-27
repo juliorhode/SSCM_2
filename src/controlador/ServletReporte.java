@@ -2,11 +2,13 @@ package controlador;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.naming.Context;
@@ -23,6 +25,9 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+import bean.Cita;
+import modelo.DatosCitaMedica;
+import modelo.DatosMedico;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -58,8 +63,74 @@ public class ServletReporte extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//doGet(request, response);
+		doGet(request, response);
+		try (PrintWriter out = response.getWriter()){
+			initialcontext = new InitialContext();
+			context = new InitialContext();
+			datasource = (DataSource)context.lookup("jdbc/pool");
+			conexion = datasource.getConnection();
+			
+			tipoCita="";
+			medico="";
+			fecha= request.getParameter("FechaSolicitud");
+			DatosCitaMedica agendaTemp = new DatosCitaMedica(conexion);
+			cita = agendaTemp.getListado(tipoCita, fecha, medico);
+			
+			String fecha = request.getParameter("FechaSolicitud");
+			out.println("<!DOCTYPE html>");
+			out.println("<html>");
+			out.println("<head>");
+			out.println("<link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>");
+			out.println("</head>");
+			out.println("<body>");
+			//out.println("<img id='logo-header' src='imagenes/logo2.png' style='width: 10%; float:left; margin-left: 10px; margin-top: 10px;'>");
+			
+			out.println("<label><h3 style='text-align: center;'><span class='label '>Gerencia de Seguridad y Salud en el Trabajo</span></h3></label>");
+			out.println("<label><h3 style='text-align: center;'><span class='label '>Agenda Médica</span></h3></label>");
+			out.println("<div class='w3-container'>");
+			out.println("<table class='w3-table-all w3-centered'>");
+			out.println("<thead>");
+			out.println("<tr style='background-color:#335f7d; font-size: 14px;color: white;font-weight: bold;'>");
+			out.println("<th>CI. Emp.</th>");
+			out.println("<th>Nombre Empleado</th>");
+			out.println("<th>CI. Fam.</th>");
+			out.println("<th>Nombre Familiar</th>");
+			out.println("<th>Fecha Cita</th>");
+			out.println("<th>Hora Cita</th>");
+			out.println("<th>Medico</th>");
+			out.println("<th>Motivo</th>");
+			out.println("</tr>");
+			out.println("</thead>");//<!-- Fin thead -->
+			out.println("<tbody>");
+			for(int i = 0; i < cita.size(); i++) {
+				out.println("<tr style='font-size: 12px;font-weight: bold;'>");
+					out.println("<td>" + cita.get(i).getCi_empleado()   + "</td>");
+					out.println("<td>" + cita.get(i).getNb_empleado()   + "</td>");
+					out.println("<td>" + cita.get(i).getCi_familiar()   + "</td>");
+					out.println("<td>" + cita.get(i).getNb_familiar()   + "</td>");
+					out.println("<td>" + cita.get(i).getFe_cita()       + "</td>");
+					if(cita.get(i).getHh_cita() == null){
+						out.println("<td>0</td>");
+					} else {
+						out.println("<td>" + cita.get(i).getHh_cita() + "</td>");
+					}
+					DatosMedico especialistas = new DatosMedico(conexion);
+					String nombreMedico = especialistas.getNombreCompleto(cita.get(i).getCi_especialista());
+					out.println("<td>" + nombreMedico 					+ "</td>");
+					out.println("<td>" + cita.get(i).getNb_ti_solicitud() + "</td>");
+				out.println("</tr>");
+			}
+			out.println("</tbody>");//<!-- Fin tbody -->
+			out.println("</table>");//<!-- Fin table -->
+			out.println("</div>");
+			out.println("</body>");
+			out.println("</html>");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
+		/*
 		try {
 			initialcontext = new InitialContext();
 			context = new InitialContext();
@@ -99,6 +170,7 @@ public class ServletReporte extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.getMessage();
 		}
+		*/
 	}
 	
 	/******************************************/
@@ -109,4 +181,9 @@ public class ServletReporte extends HttpServlet {
 	private DataSource datasource;
 	private InitialContext initialcontext;
 	private Context context;
+	
+	private String tipoCita ="";
+	private String medico ="";
+	private String fecha;
+	private List<Cita> cita;
 }
