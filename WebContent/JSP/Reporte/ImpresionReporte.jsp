@@ -4,6 +4,7 @@
 <!--******************* ESTILO *******************-->
 <!--**********************************************-->
 <link rel="stylesheet" href="css/cita_medica/general.css">
+<script src="js/jquery.PrintArea.js"></script>
 
 <style>
 	#panel{margin-top: 20px;}
@@ -25,12 +26,12 @@
 		</div><!--Fin panel panel-default-->
 	</div><!--Fin panel-group-->
 </div>
-<div id ="prueba"></div>				
+			
+
 
 
 
 <script>
-$("#imprimeFecha").hide();
 $("#FechaSolicitud").datepicker({
 	dateFormat: "dd/mm/yy",
 	//minDate: new Date(),

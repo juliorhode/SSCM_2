@@ -80,14 +80,17 @@ public class ServletReporte extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<link rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css'>");
+			out.println("<link rel='stylesheet' href='css/bootstrap.css'>");
+			out.println("<link rel='stylesheet' href='css/w3.css'>");
+			out.println("<script src='js/jQuery_v3.3.1.js'></script>");
+			out.println("<script src='js/jquery.PrintArea.js'></script>");
 			out.println("</head>");
 			out.println("<body>");
 			//out.println("<img id='logo-header' src='imagenes/logo2.png' style='width: 10%; float:left; margin-left: 10px; margin-top: 10px;'>");
+			out.println("<div class='w3-container' id='contenido'>");
+			out.println("<h3 style='text-align: center;'>Gerencia de Seguridad y Salud en el Trabajo</h3>");
+			out.println("<h3 style='text-align: center;'>Agenda Médica</h3>");
 			
-			out.println("<label><h3 style='text-align: center;'><span class='label '>Gerencia de Seguridad y Salud en el Trabajo</span></h3></label>");
-			out.println("<label><h3 style='text-align: center;'><span class='label '>Agenda Médica</span></h3></label>");
-			out.println("<div class='w3-container'>");
 			out.println("<table class='w3-table-all w3-centered'>");
 			out.println("<thead>");
 			out.println("<tr style='background-color:#335f7d; font-size: 14px;color: white;font-weight: bold;'>");
@@ -123,6 +126,11 @@ public class ServletReporte extends HttpServlet {
 			out.println("</tbody>");//<!-- Fin tbody -->
 			out.println("</table>");//<!-- Fin table -->
 			out.println("</div>");
+			
+			out.println("<div id ='prueba' style='margin-top: 2%; margin-left: 46%;'>");
+			out.println("<input type='button' class ='btn btn-primary' value='Imprimir' id='print'>");
+			out.println("</div>");
+			out.println("<script>$('#print').click(function (){$('#contenido').printArea();})</script>");
 			out.println("</body>");
 			out.println("</html>");
 			
