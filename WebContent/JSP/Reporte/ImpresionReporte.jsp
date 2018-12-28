@@ -20,7 +20,7 @@
 			<form action="ServletReporte" method="post" target="_blank">
 				<label for="FechaSolicitud">Reporte Agenda por Fecha</label><br>				
 				<input type="text" name="FechaSolicitud" readonly="readonly" class="btn btn-default" id="FechaSolicitud" placeholder="Fecha" style="width: 150px; ">
-				<input type="submit" id="btnPDF" class="btn btn-default">
+				<input type="submit" id="btnPDF" class="btn btn-primary" value="Solicitar">
 			</form>
 			</div><!--Fin panel-body-->
 		</div><!--Fin panel panel-default-->
