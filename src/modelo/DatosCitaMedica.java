@@ -49,11 +49,13 @@ public class DatosCitaMedica{
 		this.fe_cita = fe_cita;
 		this.con = conexion;
 	}
-	
-	
 
-	
-
+	/**
+	 * Aqui verificamos si el empleado posee ya una cita programada.
+	 * Una persona no puede tener un mismo tipo de cita (odontologica) 
+	 * el mismo dia que se encuentre en status solicitada. No importa si 
+	 * son medicos diferentes. 
+	 * */
 	public int getCantidadCitasEmp() throws Exception {
 		// Establecemos una coneccion
 		//con = getConexion();
@@ -93,6 +95,12 @@ public class DatosCitaMedica{
 		return cantidad;
 	}
 	
+	/**
+	 * Aqui verificamos si el familiar posee ya una cita programada.
+	 * Una persona no puede tener un mismo tipo de cita (odontologica) 
+	 * el mismo dia que se encuentre en status solicitada. No importa si 
+	 * son medicos diferentes. 
+	 * */
 	public int getCantidadCitasFam() throws Exception {
 		// Establecemos una coneccion
 		//con = getConexion();
@@ -381,38 +389,43 @@ public class DatosCitaMedica{
 						pst_buscaCita.setString(1, tipo_cita);
 						pst_buscaCita.setString(2, fecha_cita);
 					}else {
-						citaSQL = sql + "where nb_ti_solicitud = ? order by nu_solicitud asc";
+						citaSQL = sql + "where nb_ti_solicitud = ? order by fe_cita asc, nu_solicitud asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, tipo_cita);
 					}
 					break;
 				case "T":
 					if(fecha_cita != null) {
-						citaSQL = sql + "where fe_cita = to_date(?,'DD/MM/YYYY') order by nu_solicitud asc";
+						citaSQL = sql + "where fe_cita = to_date(?,'DD/MM/YYYY') order by hh_cita asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, fecha_cita);
 					}else {
-						citaSQL = sql + "order by nu_solicitud asc";
+						citaSQL = sql + "order by fe_cita asc, hh_cita asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);	
 					}
 					break;
 				case "M": 
 				case "O":
 					if(fecha_cita != null) {
-						citaSQL = sql + "where in_especialidad = ? and nb_ti_solicitud!='Emergencia' and fe_cita = to_date(?,'DD/MM/YYYY') order by nu_solicitud asc";
+						citaSQL = sql + "where in_especialidad = ? and nb_ti_solicitud!='Emergencia' and fe_cita = to_date(?,'DD/MM/YYYY') order by hh_cita asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, tipo_cita);
 						pst_buscaCita.setString(2, fecha_cita);
 					}else {
-						citaSQL = sql + "where in_especialidad = ? and nb_ti_solicitud!='Emergencia' order by nu_solicitud asc";
+						citaSQL = sql + "where in_especialidad = ? and nb_ti_solicitud!='Emergencia' order by fe_cita asc, hh_cita asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, tipo_cita);
 					}
 					break;
 				}
 			}else {
-				if(fecha_cita != null) {
-					citaSQL = sql + "where fe_cita = to_date(?,'DD/MM/YYYY') order by nu_solicitud asc";
+				if(fecha_cita != null && medico != null) {
+					citaSQL = sql + "where fe_cita = to_date(?,'DD/MM/YYYY') and ci_especialista = ? order by hh_cita asc";
+					pst_buscaCita = con.prepareStatement(citaSQL);
+					pst_buscaCita.setString(1, fecha_cita);
+					pst_buscaCita.setString(2, medico);
+				}else if(fecha_cita != null) {
+					citaSQL = sql + "where fe_cita = to_date(?,'DD/MM/YYYY') order by hh_cita asc";
 					pst_buscaCita = con.prepareStatement(citaSQL);
 					pst_buscaCita.setString(1, fecha_cita);
 				}

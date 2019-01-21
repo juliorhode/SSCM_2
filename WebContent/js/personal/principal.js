@@ -79,6 +79,7 @@ function cedulaModal(){
 	    	cedula : cedula,
 	    	parametro : "Solicitante",
 	    },
+	     
 	    success: function( result ) {
 			/**********************************
 		      Info Lateral derecho

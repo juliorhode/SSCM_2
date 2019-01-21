@@ -37,7 +37,7 @@ public class ServletPersona extends HttpServlet {
 
 	public ServletPersona() {
         super();
-    }
+    } 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NullPointerException {
 		response.setContentType("text/html;charset=UTF-8");
@@ -46,8 +46,8 @@ public class ServletPersona extends HttpServlet {
 		try {
 			HttpSession sesion = request.getSession(false);
 			conexion = (Connection) sesion.getAttribute("pool");	
-			if (conexion.isClosed()) {
-				request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);
+			if (conexion == null) {
+				request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response); 
 			}else {
 				switch (parametro) {
 				case "Emp":
@@ -58,7 +58,7 @@ public class ServletPersona extends HttpServlet {
 						StringWriter errors = new StringWriter();
 						e.printStackTrace(new PrintWriter(errors));
 						log.info(errors.toString());
-					}
+					} 
 					break;
 				case "Fam":
 					try {
@@ -160,15 +160,12 @@ public class ServletPersona extends HttpServlet {
 					}
 				break;
 			}
-			}
+			} 
 		} catch (Exception e) {
 			// TODO: handle exception
-			request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);
+			request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response); 
 		}
-		
-		
-				
-			}
+	}
 	
 	private void obtenerEmpleado(HttpServletRequest request, HttpServletResponse response, int cedula, Connection conexion) throws Exception{
 		// TODO Auto-generated method stub

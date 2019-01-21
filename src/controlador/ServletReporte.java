@@ -71,8 +71,8 @@ public class ServletReporte extends HttpServlet {
 			conexion = datasource.getConnection();
 			
 			tipoCita="";
-			medico="";
-			fecha= request.getParameter("FechaSolicitud");
+			medico=request.getParameter("optMedico");
+			fecha= request.getParameter("fecha");
 			DatosCitaMedica agendaTemp = new DatosCitaMedica(conexion);
 			cita = agendaTemp.getListado(tipoCita, fecha, medico);
 			

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import bean.Cita;
+import bean.Familiar;
 import bean.Medico;
 import bean.ParametroCita;
 import modelo.DatosCitaMedica;
@@ -117,6 +118,9 @@ public class ServletEspecialista extends HttpServlet {
 						turno = "T";
 					}
 					obtenerEspecialistas(request,response,tipo, turno,conexion);
+				break;
+				case "medicoReporte":
+					obtenerEspecialistas(request,response,conexion);	
 				break;
 				case "horario":
 					fechaCita = request.getParameter("fecha");
@@ -250,6 +254,8 @@ public class ServletEspecialista extends HttpServlet {
 	}
 		
 			
+	
+
 	private void agendaCitasTemp(HttpServletRequest request, HttpServletResponse response, List<Cita> cita, Connection conexion) {
 			try (PrintWriter out = response.getWriter()){
 				try {
@@ -434,11 +440,37 @@ public class ServletEspecialista extends HttpServlet {
 		}
 		
 	}
-
+	
+	private void obtenerEspecialistas(HttpServletRequest request, HttpServletResponse response, Connection conexion) {
+		/**
+		 * Se creó para el reporte dado que necesito la cedula y el de abajo no lo 
+		 * puedo modificar ya que va a afectar varias partes.
+		 * */
+		DatosMedico especialistas = new DatosMedico(conexion);
+		try {
+			List<Medico> med = especialistas.getTodosMedicos() ;
+			try (PrintWriter out = response.getWriter()){
+				//out.println("<div class='col-sm-12'>");
+				//out.println("<ul class='list-group'>");
+				//out.println("<li class='list-group-item'>");
+				out.println("<br>");
+				out.println("<div class='radio' style='text-align:left;'>");
+					for(int i =0; i < med.size(); i++) {
+						out.println("<input name='optMedico' id='optMedico' type='radio' value='"+ med.get(i).getCedula() +"'>" + med.get(i).getNb_medico() );
+						out.println("<br>");
+					}
+				out.println("</div>");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	private void obtenerEspecialistas(HttpServletRequest request, HttpServletResponse response, String tipo, String turno, Connection conexion) throws IOException {
 		try (PrintWriter out = response.getWriter()){
 			try {
-				if(tipo=="" && turno=="") {
+				if((tipo == "" && turno == "") || (tipo == null && turno == null)) {
 					DatosMedico especialistas = new DatosMedico(conexion);
 					List<String> esp = especialistas.getNombreCompleto();
 					out.println("<select name='listadoMedico' class='form-control' id='listadoMedico'>");

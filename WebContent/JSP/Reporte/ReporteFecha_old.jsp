@@ -24,7 +24,7 @@
 	String url = jdbc + hostname + port +  database;
 	
 	String a = System.getenv("DOMAIN_HOME") + File.separator + "resources" + File.separator + "JDBC_Admin.properties";
-	/*
+	
 	try{
 		
 		Class.forName(classname);
@@ -34,11 +34,11 @@
       	//Ruta del reporte
         File reporteFile = new File("/appldesa/SSCM/domains/SSCMdomain/resources/Reporte_Agenda.jasper");
     	//Crearemos un objeto HashMap
-    	//Map<String, Object> parametros = new HashMap<String,Object>();
-    	//parametros.put("fecha",request.getParameter("fecha"));
-    	//parametros.put("fecha","05/12/2018");
+    	Map<String, Object> parametros = new HashMap<String,Object>();
+    	parametros.put("fecha",request.getParameter("fecha"));
+    	parametros.put("fecha","05/12/2018");
     	//crearemos un arreglo byte
-    	//byte[] bytes = JasperRunManager.runReportToPdf(reporteFile.getPath(), parametros, con);
+    	byte[] bytes = JasperRunManager.runReportToPdf(reporteFile.getPath(), parametros, con);
     	//indicamos la salida que es en formato pdf
     	response.setContentType("application/pdf");
     	//creamos un objeto de salida
@@ -54,46 +54,39 @@
 		if(con!=null){
 			con.close();
 		}
-	}*/
+	}
+	/*
+	try {
+        String jrxmlFileName = "/formatosjasper/formatoreporte.jasper";
+        File archivoReporte = new File(request.getRealPath(jrxmlFileName));
+        HashMap hm = null;
+        hm = new HashMap();
+
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+
+        byte[] bytes = null;
+
+        try {
+            bytes = JasperRunManager.runReportToPdf(archivoReporte.getPath(), hm, new JREmptyDataSource());
+
+            response.setContentType("application/pdf");
+            response.setContentLength(bytes.length);
+            servletOutputStream.write(bytes, 0, bytes.length);
+            servletOutputStream.flush();
+            servletOutputStream.close();
+        } catch (JRException e) {
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(stringWriter);
+            e.printStackTrace(printWriter);
+            response.setContentType("text/plain");
+            response.getOutputStream().print(stringWriter.toString());
+        }
+    } catch (Exception e) {
+        salida = "Error generando Reporte Jasper, el error del Sistema es " + e;
+        System.out.println(salida);
+    }
+    */
 
 %>
 
-<html>
-<body>
-<h1><%=a %></h1>
-</body>
-</html>
 
-
-
-
-
-try {
-            String jrxmlFileName = "/formatosjasper/formatoreporte.jasper";
-            File archivoReporte = new File(request.getRealPath(jrxmlFileName));
-            HashMap hm = null;
-            hm = new HashMap();
- 
-            ServletOutputStream servletOutputStream = response.getOutputStream();
- 
-            byte[] bytes = null;
- 
-            try {
-                bytes = JasperRunManager.runReportToPdf(archivoReporte.getPath(), hm, new JREmptyDataSource());
- 
-                response.setContentType("application/pdf");
-                response.setContentLength(bytes.length);
-                servletOutputStream.write(bytes, 0, bytes.length);
-                servletOutputStream.flush();
-                servletOutputStream.close();
-            } catch (JRException e) {
-                StringWriter stringWriter = new StringWriter();
-                PrintWriter printWriter = new PrintWriter(stringWriter);
-                e.printStackTrace(printWriter);
-                response.setContentType("text/plain");
-                response.getOutputStream().print(stringWriter.toString());
-            }
-        } catch (Exception e) {
-            salida = "Error generando Reporte Jasper, el error del Sistema es " + e;
-            System.out.println(salida);
-        }
