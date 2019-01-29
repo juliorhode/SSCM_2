@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -92,6 +94,21 @@ public class ServletConexion extends HttpServlet {
 			//response.sendRedirect("error.jsp");
 			e.printStackTrace();
 		}
+	}
+	
+	public Connection getConexion() {
+		try {
+			initialcontext = new InitialContext();
+			context = new InitialContext();
+			datasource = (DataSource)context.lookup("jdbc/pool");
+			conexion = datasource.getConnection();
+		} catch (NamingException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return conexion;
+		
 	}
 	
 

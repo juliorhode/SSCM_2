@@ -57,10 +57,13 @@ public class ServletEspecialista extends HttpServlet {
 		
 		try {
 			HttpSession sesion = request.getSession(false);
-			conexion = (Connection) sesion.getAttribute("pool");	
-			if (conexion.isClosed()) {
-				request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);
-			}else {
+			//conexion = (Connection) sesion.getAttribute("pool");	
+			//if (conexion.isClosed()) {
+			//	request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);
+			//}else {
+			ServletConexion sc = new ServletConexion();
+			conexion = sc.getConexion();
+			sesion.setAttribute("pool", conexion);
 				switch (param) {
 					case "agendaCitas"://La que le aparece al DAME
 						
@@ -245,7 +248,8 @@ public class ServletEspecialista extends HttpServlet {
 						log.info(errors.toString());
 					}
 				}
-			}
+			//}
+				conexion.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 			request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);

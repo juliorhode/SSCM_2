@@ -52,10 +52,13 @@ public class ServletCitasMedicas extends HttpServlet {
 		
 		try {
 			HttpSession sesion = request.getSession(false);
-			conexion = (Connection) sesion.getAttribute("pool");	
-			if (conexion.isClosed()) {
-				request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);
-			}else {
+			//conexion = (Connection) sesion.getAttribute("pool");	
+			//if (conexion.isClosed()) {
+			//	request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);
+			//}else {
+			ServletConexion sc = new ServletConexion();
+			conexion = sc.getConexion();
+			sesion.setAttribute("pool", conexion);
 				/*****************************************/
 				/************** HORA ACTUAL **************/
 				/*****************************************/
@@ -273,7 +276,8 @@ public class ServletCitasMedicas extends HttpServlet {
 					
 					break;
 				}
-			}
+			//}
+				conexion.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 			request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);

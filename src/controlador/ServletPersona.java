@@ -44,11 +44,18 @@ public class ServletPersona extends HttpServlet {
 		parametro = request.getParameter("parametro");
 		cedula = Integer.parseInt(request.getParameter("cedula"));
 		try {
+			
 			HttpSession sesion = request.getSession(false);
-			conexion = (Connection) sesion.getAttribute("pool");	
-			if (conexion == null) {
-				request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response); 
-			}else {
+			/*Voy a comentar esta parte como parte de pruebas a ver
+			 * si se puede resolver el tema de la caida de conexion
+			 * por aqui*/
+			//conexion = (Connection) sesion.getAttribute("pool");	
+			//if (conexion == null || conexion.isValid(5) ) {
+				ServletConexion sc = new ServletConexion();
+				conexion = sc.getConexion();
+				sesion.setAttribute("pool", conexion);
+				//request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response); 
+			//}else {
 				switch (parametro) {
 				case "Emp":
 					try {
@@ -160,7 +167,8 @@ public class ServletPersona extends HttpServlet {
 					}
 				break;
 			}
-			} 
+				conexion.close();
+			//} 
 		} catch (Exception e) {
 			// TODO: handle exception
 			request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response); 
