@@ -54,7 +54,7 @@ public class DatosEmpleado{
 		
 		// Creamos la consulta para la busqueda del empleado
 		
-		String consultaEmp =  "select "
+		/*String consultaEmp =  "select "
 								+ "emp.cedula, "
 								+ "initcap(emp.nombre1) as nombre1, "
 								+ "initcap(emp.nombre2) as nombre2, "
@@ -75,7 +75,51 @@ public class DatosEmpleado{
 								+ "decode(emp.sexo, 'M', 'Sr.', 'F', 'Sra.')as nb_identificacion "
 							+ "from personal.todos_empleados emp join personal.empleado_direccion dir on dir.nu_cedula = emp.cedula "
 							+ "where dir.nu_cedula = ? "; // and tipo_emp = 'OBR' --> esto es para operativo de tallas //esta condicion hay que eliminarla luego del operativo encuesta
-
+		 */
+		String consultaEmp = "select * from( "
+								+ "select "
+								    + "emp.cedula, "
+								    + "initcap(emp.nombre1) as nombre1, "
+								    + "initcap(emp.nombre2) as nombre2, "
+								    + "initcap(emp.apellido1) as apellido1, "
+								    + "initcap(emp.apellido2) as apellido2, "
+								    + "initcap( "
+								    + "case "
+								        + "when upper(emp.nombre2) is null then upper(emp.apellido1)||' '||upper(emp.apellido2)||', '||upper(emp.nombre1) "
+								        + "when upper(emp.apellido2) is null then upper(emp.apellido1)|| ', '||upper(emp.nombre1)||' ' || upper(emp.nombre2) "
+								        + "else upper(emp.apellido1)|| ' ' ||upper(emp.apellido2)|| ', '||upper(emp.nombre1)||' '||upper(emp.nombre2) "
+								    + "end) as nb_empleado, "
+								    + "trim(replace(replace(dir.nu_celular_1,'-',''),' ',''))nu_celular, "
+								    + "emp.tx_email_propio, "
+								    + "emp.tx_email_bcv, "
+								    + "dir.co_user_id, "
+								    + "emp.sexo, "
+								    + "decode(emp.sexo, 'M', 'Masculino', 'F', 'Femenino')as nb_sexo, "
+								    + "decode(emp.sexo, 'M', 'Sr.', 'F', 'Sra.')as nb_identificacion "
+								+ "from personal.todos_empleados emp left join personal.empleado_direccion dir on dir.nu_cedula = emp.cedula "
+								+ "union "
+								+ "select  "
+								    + "ci_sobreviviente as cedula, "
+								    + "initcap(nb1_sobreviviente) as nombre1, "
+								    + "initcap(nb2_sobreviviente) as nombre2, "
+								    + "initcap(tx_apellido1_sv) as apellido1, "
+								    + "initcap(tx_apellido2_sv) as apellido2, "
+								    + "initcap( "
+								    + "case "
+								        + "when upper(nb2_sobreviviente) is null then upper(tx_apellido1_sv)||' '||upper(tx_apellido2_sv)||', '||upper(nb1_sobreviviente) "
+								        + "when upper(tx_apellido2_sv) is null then upper(tx_apellido1_sv)|| ', '||upper(nb1_sobreviviente)||' ' || upper(nb2_sobreviviente) "
+								        + "else upper(tx_apellido1_sv)|| ' ' ||upper(tx_apellido2_sv)|| ', '||upper(nb1_sobreviviente)||' '||upper(nb2_sobreviviente) "
+								    + "end) as nb_empleado, "
+								    + "trim(replace(replace(nu_telefono,'-',''),' ',''))nu_celular, "
+								    + "'' tx_email_propio, "
+								    + "'' tx_email_bcv, "
+								    + "'' co_user_id, "
+								    + "in_sexo, "
+								    + "decode(in_sexo, 'M', 'Masculino', 'F', 'Femenino')as nb_sexo, "
+								    + "decode(in_sexo, 'M', 'Sr.', 'F', 'Sra.')as nb_identificacion "
+								+ "from rhsv.sobreviviente "
+								+ "where ci_sobreviviente not in (select cedula from todos_empleados)) "
+								+ "where cedula = ? ";
 		// Pasamos el sql a la consulta con parametros
 		buscaEmpleado = con.prepareStatement(consultaEmp);
 		

@@ -98,6 +98,7 @@ public class ServletReporte extends HttpServlet {
 			out.println("<th>Nombre Empleado</th>");
 			out.println("<th>CI. Fam.</th>");
 			out.println("<th>Nombre Familiar</th>");
+			out.println("<th>N° Contacto</th>");
 			out.println("<th>Fecha Cita</th>");
 			out.println("<th>Hora Cita</th>");
 			out.println("<th>Medico</th>");
@@ -111,6 +112,12 @@ public class ServletReporte extends HttpServlet {
 					out.println("<td>" + cita.get(i).getNb_empleado()   + "</td>");
 					out.println("<td>" + cita.get(i).getCi_familiar()   + "</td>");
 					out.println("<td>" + cita.get(i).getNb_familiar()   + "</td>");
+					if(cita.get(i).getExtension() == null) {
+						out.println("<td>" + cita.get(i).getCelular()   + "</td>");
+					}else {
+						out.println("<td>" + cita.get(i).getExtension() +" / " + cita.get(i).getCelular()   + "</td>");	
+					}
+					
 					out.println("<td>" + cita.get(i).getFe_cita()       + "</td>");
 					if(cita.get(i).getHh_cita() == null){
 						out.println("<td>0</td>");

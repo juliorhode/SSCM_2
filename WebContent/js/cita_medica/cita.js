@@ -250,16 +250,18 @@ function fecha(){
             $('input:radio[name=optHora]').prop('checked', false);
             $("#panel-group-Botones").hide();
             
+            
             $("#form-group-horario input").click(function(){
            	 	if ( $('input:radio[name=optHora]:checked').val() ){
            	 		$("#panel-group-Botones").show();
            	 	}
            });
+           
         }
+        
     });
+	
 }
-	
-	
 
 
 /*************************************

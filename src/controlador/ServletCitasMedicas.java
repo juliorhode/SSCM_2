@@ -124,8 +124,16 @@ public class ServletCitasMedicas extends HttpServlet {
 						beanCita.setNb_usuario_modific(nb_usuario_modific);
 						beanCita.setFe_solicitud(fe_solicitud);
 						beanCita.setHh_solicitud(horaActual);
-						
-						insertaCita(request,response,beanCita,especialidadMedico);
+						/*Se incluyó la verificación de datos*/
+						DatosCitaMedica dm = new DatosCitaMedica(conexion);
+						boolean flag = dm.buscaRegistro(beanCita);
+						if(flag) {
+							try (PrintWriter out = response.getWriter()){
+								out.println("<script>$.alert({title: 'Registro de Cita',content: 'Existe un registro previo... Vuelva a intentarlo!!!',type: 'red',theme: 'bootstrap',});</script>");								
+							}
+						}else {
+							insertaCita(request,response,beanCita,especialidadMedico);	
+						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						StringWriter errors = new StringWriter();

@@ -8,6 +8,7 @@
 
 <style>
 	#panel{margin-top: 20px;}
+	#btnPDF{display: none;}
 </style>
 
 <div class="col-sm-12" id="panel">
@@ -52,7 +53,7 @@ $("#fecha").datepicker({
 
 $("#fecha").change(function(){
 	if($("#fecha").val() !=""){
-		$("#imprimeFecha").show();
+		$("#btnPDF").show();
 		$.ajax({
 			type: "POST",
 			url: "Especialista",

@@ -30,6 +30,7 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+import bean.Cita;
 import bean.Medico;
 
 
@@ -41,6 +42,91 @@ public class pruebaHorario {
 	
 	
 public static  void main(String[] args) throws Exception {
+	Connection conexion;
+	Statement  st_buscaCita 		= null;
+	PreparedStatement pst_buscaCita = null;
+	ResultSet  cursor    			= null;
+	String username = "admssps";
+	String password = "admssps";
+	String hostname = "@cl-oradtbcv01:";
+	String port = "1521";
+	String database = "/orabdd02";
+	String jdbc = "jdbc:oracle:thin:";
+	String classname = "oracle.jdbc.OracleDriver";
+	String url = jdbc + hostname + port +  database;
+	Class.forName(classname);
+	conexion = DriverManager.getConnection(url,username,password);
+
+	
+	/*Se obtienen los datos de la cita a programar*/
+	Cita nuevacita = new Cita();
+	int nu_solicitud = 5001;
+	String st_cita = "S";
+	int ci_empleado = 13802982;
+	String nb_empleado = "Ferrer Julio";
+	int ci_familiar = 0;
+	String nb_familiar = "No aplica";
+	String in_ti_cita = "M";
+	String in_especialidad = "M";
+	String fe_cita = "20/12/2019";
+	String hh_cita = "08:00 a.m.";
+	int ci_especialista = 6518383;
+	String nb_ti_solicitud = "Consulta Médica";
+	String fe_atencion = null;
+	String hh_atencion = null;
+	String nb_usuario_modific = "juferrer";
+	String tx_dato_modificado =  null;
+	String fe_solicitud = "11/02/2019";
+	String hh_solicitud = "08:00 a.m.";
+	/*Se construye el objeto Cita*/
+	nuevacita.setNu_solicitud(nu_solicitud);
+	nuevacita.setSt_cita(st_cita);
+	nuevacita.setCi_empleado(ci_empleado);
+	nuevacita.setNb_empleado(nb_empleado);
+	nuevacita.setCi_familiar(ci_familiar);
+	nuevacita.setNb_familiar(nb_familiar);
+	nuevacita.setIn_ti_cita(in_ti_cita);
+	nuevacita.setIn_especialidad(in_especialidad);
+	nuevacita.setFe_cita(fe_cita);
+	nuevacita.setHh_cita(hh_cita);
+	nuevacita.setCi_especialista(ci_especialista);
+	nuevacita.setNb_ti_solicitud(nb_ti_solicitud);
+	nuevacita.setFe_atencion(fe_atencion);
+	nuevacita.setHh_atencion(hh_atencion);
+	nuevacita.setNb_usuario_modific(nb_usuario_modific);
+	nuevacita.setTx_dato_modificado(tx_dato_modificado);
+	nuevacita.setFe_solicitud(fe_solicitud);
+	nuevacita.setHh_solicitud(hh_solicitud);
+	/*se verifica si existe una cita con esas caracteristicas*/
+	String sql = "select * from salud.cm_cita_medica where fe_cita = ? and hh_cita = ? and ci_especialista = ? and st_cita = 'S'";
+	pst_buscaCita = conexion.prepareStatement(sql);
+	pst_buscaCita.setString(1, fe_cita);
+	pst_buscaCita.setString(2, hh_cita);
+	pst_buscaCita.setInt(3, ci_especialista);
+	cursor = pst_buscaCita.executeQuery();
+	
+	if (cursor.next()) {
+		/*No se permite el registro porque se encontro uno previo*/
+		System.out.println("No se puede registrar la cita");
+	}else {
+		/*Se procede a registrar la cita*/
+		String citaSQL = "insert into salud.cm_cita_medica "
+				+ "(nu_solicitud, "
+				+ "st_cita, "
+				+ "ci_empleado, "
+				+ "nb_empleado, "
+				+ "ci_familiar, "
+				+ "nb_familiar, "
+				+ "fe_cita, "
+				+ "hh_cita, "
+				+ "ci_especialista) "
+			+ "values(5000, 'S', 13802982, 'Ferrer Julio', 0, 'No aplica',to_date('20/12/2019','DD/MM/YYYY'), '08:00 a.m.', 6518383)";
+			pst_buscaCita.execute();
+	}
+	
+	
+       
+       
 	/*
 	Calendar calendario = new GregorianCalendar();
 	String dia = Integer.toString(calendario.get(Calendar.DATE));
@@ -406,7 +492,7 @@ public static  void main(String[] args) throws Exception {
 	/***********************************************/
 	/********** Prueba Parametros Horario **********/
 	/***********************************************/
-	
+	/*
 	Connection conexion   = null;
 	Statement busca       = null;
 	ResultSet cursor 	  = null;
@@ -730,7 +816,7 @@ public static  void main(String[] args) throws Exception {
 	/*************************************************/
 	/********** Prueba para generar horario **********/
 	/*************************************************/
-	
+	/*
 	int hora_ini = 7;
 	int cantidadCita = 22;
 	int tiempo_cita  = 30;
@@ -769,13 +855,9 @@ public static  void main(String[] args) throws Exception {
 		for (int m = 0; m < listado.size(); m ++) {
 			System.out.println( listado.get(m) );
 		}
-		
+	*/
 	}
-private static int cedula;
 
-
-
-
-
+	private static int cedula;
 	
 }

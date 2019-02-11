@@ -14,6 +14,7 @@
 	$(document).ready(function(){
 		//alert("LATERAL IZQUIERDA: " + $("#lateral_izq").outerHeight() + "\nLATERAL DERECHA: " + $("#lateral_der").outerHeight());
 		iniciaCita();
+		
 	});
 </script>
 

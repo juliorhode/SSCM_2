@@ -5,6 +5,7 @@ import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -136,6 +137,38 @@ public class DatosCitaMedica{
 			//con.close();
 		}
 		return cantidad;
+	}
+	
+	public boolean buscaRegistro(Cita nuevacita) throws SQLException {
+		boolean flag = false;
+		String sql = "select * "
+				   + "from salud.cm_cita_medica "
+				   + "where fe_cita = ? and "
+				   + "hh_cita = ? and "
+				   + "ci_especialista = ? and "
+				   + "st_cita = 'S'";
+		try {
+			pst_buscaCita = con.prepareStatement(sql);
+			pst_buscaCita.setString(1, nuevacita.getFe_cita());
+			pst_buscaCita.setString(2, nuevacita.getHh_cita());
+			pst_buscaCita.setInt(3, nuevacita.getCi_especialista());
+			cursor = pst_buscaCita.executeQuery();	
+			if (cursor.next()) {
+				flag = true;
+			}else {
+				flag = false;
+			}
+		} catch (Exception e) {
+			StringWriter errors = new StringWriter();
+			e.printStackTrace(new PrintWriter(errors));
+			log.info(errors.toString());
+		}finally {
+			cursor.close();
+			pst_buscaCita.close();
+			//con.close();
+		}
+		
+		return flag;
 	}
 	
 	public boolean agregarCita(Cita nuevacita, String especialidadMedico) throws Exception{
@@ -389,7 +422,7 @@ public class DatosCitaMedica{
 						pst_buscaCita.setString(1, tipo_cita);
 						pst_buscaCita.setString(2, fecha_cita);
 					}else {
-						citaSQL = sql + "where nb_ti_solicitud = ? order by fe_cita asc, nu_solicitud asc";
+						citaSQL = sql + "where nb_ti_solicitud = ? and rownum <= 300 order by fe_cita asc, nu_solicitud asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, tipo_cita);
 					}
@@ -400,7 +433,7 @@ public class DatosCitaMedica{
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, fecha_cita);
 					}else {
-						citaSQL = sql + "order by fe_cita asc, hh_cita asc";
+						citaSQL = sql + "where rownum <= 300 order by fe_cita asc, hh_cita asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);	
 					}
 					break;
@@ -412,7 +445,7 @@ public class DatosCitaMedica{
 						pst_buscaCita.setString(1, tipo_cita);
 						pst_buscaCita.setString(2, fecha_cita);
 					}else {
-						citaSQL = sql + "where in_especialidad = ? and nb_ti_solicitud!='Emergencia' order by fe_cita asc, hh_cita asc";
+						citaSQL = sql + "where in_especialidad = ? and nb_ti_solicitud!='Emergencia' and rownum <= 300 order by fe_cita asc, hh_cita asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, tipo_cita);
 					}

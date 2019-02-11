@@ -2,20 +2,21 @@
 <!--******************* ESTILOS *******************-->
 <!--***********************************************-->
 <link rel="stylesheet" href="css/cita_medica/general.css">
-<link rel="stylesheet" href="css/ausentismo.css">
+<!-- <link rel="stylesheet" href="css/ausentismo.css"> -->
 
-<script src="js/ausentismo.js"></script>
+<!-- <script src="js/ausentismo.js"></script> -->
+
 
 <div id="cargaIndividual">
     <div class="container-fluid">
         <div class="row content">
-        	<div class="col-sm-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title" align="center">Carga de Ausentismo Médico</h4>
-					</div>
-				</div>
-			</div>
+<!--         	<div class="col-sm-12"> -->
+<!-- 				<div class="panel panel-default"> -->
+<!-- 					<div class="panel-heading"> -->
+<!-- 						<h4 class="panel-title" align="center">Carga de Ausentismo Médico</h4> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
             <div class="col-sm-12">
 	            <div class="panel panel-default">
 		          	<div class="panel-heading">
@@ -31,7 +32,7 @@
 	                    <input type="text" id="cedula_especialista" data-toggle="tooltip" title="Puede presionar la tecla enter y se desplegará una ventana con los medicos" autofocus class="form-control" name="cedula_especialista">
 	                </div>
 	            </div>
-                 
+                 <a href="Ausentismo">Servlet</a>
                  <div id = "datosMedico">
 	                 <!-- 
 	                		RESULTADOS CON AJAX:
@@ -144,7 +145,7 @@
 
 
 
-<script type="text/javascript">
-	cedulaIni();
-	window.onkeyup = compruebaTecla;
-</script>
+<!-- <script type="text/javascript"> -->
+<!-- 	cedulaIni(); -->
+<!--  	window.onkeyup = compruebaTecla; -->
+<!-- </script> -->
