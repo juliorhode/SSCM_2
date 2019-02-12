@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="css/cita_medica/general.css">
 <!-- <link rel="stylesheet" href="css/ausentismo.css"> -->
 
-<!-- <script src="js/ausentismo.js"></script> -->
+<script src="js/administracion/ausentismo.js"></script>
 
 
 <div id="cargaIndividual">

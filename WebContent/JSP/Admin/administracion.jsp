@@ -112,9 +112,9 @@
 					</div>
 		      	</div>
 		      	
-		      	<div class="well">
-		      		 <p><a href="#;" id="ausentismo" >Registro de Ausentismo</a></p> 
-		      	</div>
+<!-- 		      	<div class="well"> -->
+<!-- 		      		 <p><a href="#;" id="ausentismo" >Registro de Ausentismo</a></p>  -->
+<!-- 		      	</div> -->
 		      	
 		      	<div class="well">
 		      		<p data-toggle="collapse" href="#agenda">Agenda Médica</p>

@@ -143,7 +143,7 @@ public class DatosCitaMedica{
 		boolean flag = false;
 		String sql = "select * "
 				   + "from salud.cm_cita_medica "
-				   + "where fe_cita = ? and "
+				   + "where  fe_cita = to_date(?,'DD/MM/YYYY') and "
 				   + "hh_cita = ? and "
 				   + "ci_especialista = ? and "
 				   + "st_cita = 'S'";

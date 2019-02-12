@@ -50,7 +50,7 @@ public class ServletAusentismo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-String parametro = request.getParameter("parametro");
+		String parametro = request.getParameter("parametro");
 		
 		HttpSession sesion = request.getSession(false);
 		/*Voy a comentar esta parte como parte de pruebas a ver
