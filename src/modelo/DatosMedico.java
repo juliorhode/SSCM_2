@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 
 import bean.Cita;
+import bean.Horario;
 import bean.Medico;
 import bean.ParametroCita;
 
@@ -41,6 +42,48 @@ public class DatosMedico {
 		super();
 		this.cedula = cedula;
 		this.conexion = conexion;
+	}
+	
+	
+	public List<Horario> getHorarioMedico() throws SQLException {
+		List<Horario> horario = new ArrayList<>();
+		Horario tempHora = new Horario();
+		//conexion   = null;
+		buscaMedico = null;
+		cursor 	  = null;
+		//conexion = getConexion();
+		buscaMedico = conexion.createStatement();
+		String sql = "select "
+					+ "nu_citas, "
+					+ "nu_intervalo, "
+					+ "in_turno, "
+					+ "in_especialidad, "
+					+ "hh_inicio "
+					+ "from salud.cm_param_horario "
+					+ "where ci_especialista = " + cedula;
+		cursor = buscaMedico.executeQuery(sql);
+		while(cursor.next()) {
+			int nu_citas 				= 	cursor.getInt("nu_citas");
+			int nu_intervalo 			= 	cursor.getInt("nu_intervalo");
+			String in_turno 			= 	cursor.getString("in_turno");
+			String in_especialidad		= 	cursor.getString("in_especialidad");
+			int hh_inicio 				= 	cursor.getInt("hh_inicio");
+			
+			tempHora.setNu_citas		(nu_citas);
+			tempHora.setNu_intervalo	(nu_intervalo);
+			tempHora.setIn_turno		(in_turno);
+			tempHora.setIn_especialidad	(in_especialidad);
+			tempHora.setHh_inicio		(hh_inicio);
+			
+			horario.add(tempHora);
+		}
+		
+		cursor.close();
+		buscaMedico.close();
+		//conexion.close();
+		
+		return horario;		// Retornamos el array
+		
 	}
 
 	public ArrayList<String> getHorario() throws SQLException{
@@ -266,7 +309,8 @@ public class DatosMedico {
 							+ "when upper(emp.apellido2) is null then upper(emp.apellido1)|| ', '||upper(emp.nombre1)||' ' || upper(emp.nombre2) " 
 							+ "else upper(emp.apellido1)|| ' ' ||upper(emp.apellido2)|| ', '||upper(emp.nombre1)||' '||upper(emp.nombre2) "
 						+ "end) nb_medico, "
-						+ "in_clase_medico, "
+						+ "med.in_clase_medico, "
+						+ "med.in_turno, "
 						+ "med.in_especialidad, " 
 						+ "initcap(decode(med.in_especialidad,'M','MEDICA','O','ODONTOLOGIA','N','NUTRICION','F','FISIOTERAPIA')) as nb_especialidad "  
 				   + "from personal.medicos med "
@@ -285,7 +329,7 @@ public class DatosMedico {
 			in_clase_medico 	= 	cursor.getString("in_clase_medico");
 			in_especialidad 	= 	cursor.getString("in_especialidad");
 			nb_especialidad 	= 	cursor.getString("nb_especialidad");
-			
+			in_turno			= 	cursor.getString("in_turno");
 			tempMed = new Medico (); 
 			
 			tempMed.setCedula			(cedula);
@@ -293,6 +337,7 @@ public class DatosMedico {
 			tempMed.setIn_clase_medico	(in_clase_medico);
 			tempMed.setIn_especialidad	(in_especialidad);
 			tempMed.setNb_especialidad	(nb_especialidad);
+			tempMed.setIn_turno(in_turno);
 			
 			listaMedico.add(tempMed);
 		}
@@ -381,6 +426,7 @@ public class DatosMedico {
 	private Medico tempMed;
 	private List<Medico> listaMedico;
 	private String listaHorario;
+	private ParametroCita param;
 	
 	private int 	cedula;
 	private String 	situacion;

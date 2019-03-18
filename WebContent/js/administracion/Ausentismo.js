@@ -63,7 +63,7 @@ function cedulaIni(){
 		
 		$.ajax({
 			  type: "POST",
-			  url: "/ServletAusentismo",
+			  url: "Ausentismo",
 			  data: {
 				  parametro : "medicoModal"
 			  },

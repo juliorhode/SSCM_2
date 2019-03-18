@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -20,6 +21,7 @@ import org.apache.log4j.Logger;
 
 import bean.Cita;
 import bean.Familiar;
+import bean.Horario;
 import bean.Medico;
 import bean.ParametroCita;
 import modelo.DatosCitaMedica;
@@ -125,6 +127,10 @@ public class ServletEspecialista extends HttpServlet {
 				case "medicoReporte":
 					obtenerEspecialistas(request,response,conexion);	
 				break;
+				case "listaHorario":
+					cedulaMedico = Integer.parseInt(request.getParameter("cedula_especialista"));
+					muestraHorario(request,response,cedulaMedico, conexion);
+					break;
 				case "horario":
 					fechaCita = request.getParameter("fecha");
 					cedulaMedico = Integer.parseInt(request.getParameter("especialista"));
@@ -195,7 +201,10 @@ public class ServletEspecialista extends HttpServlet {
 											out.println("</div>");
 										}
 									}
+								}finally {
+									conexion.close();	
 								}
+								
 							break;
 							case "FAM":
 								cedulaFamiliar = Integer.parseInt(request.getParameter("cedulaFam"));
@@ -238,29 +247,58 @@ public class ServletEspecialista extends HttpServlet {
 											out.println("</div>");
 										}
 									}
+								}finally {
+									conexion.close();	
 								}
-							break;
+								break;
 						}
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						StringWriter errors = new StringWriter();
 						e.printStackTrace(new PrintWriter(errors));
 						log.info(errors.toString());
+					}finally {
+						conexion.close();	
 					}
 				}
 			//}
-				conexion.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 			request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);
 		}
 			
 	}
-		
-			
-	
 
-	private void agendaCitasTemp(HttpServletRequest request, HttpServletResponse response, List<Cita> cita, Connection conexion) {
+	private void muestraHorario(HttpServletRequest request, HttpServletResponse response, int cedulaMedico, Connection conexion) throws SQLException {
+		// TODO Auto-generated method stub
+		DatosMedico med = new DatosMedico(cedulaMedico,conexion);
+		try (PrintWriter out = response.getWriter()){
+			
+			List<Horario> horario = med.getHorarioMedico();
+			for (int i = 0; i < horario.size() ; i++) {
+				out.println("<tr>");
+				out.println("<td>" + horario.get(i).getNu_citas() + "</td>");
+				out.println("<td>" + horario.get(i).getNu_intervalo() + "</td>");
+				
+				if(horario.get(i).getHh_inicio() < 12) {
+					out.println("<td>0" + horario.get(i).getHh_inicio() + ":00 a.m.</td>");
+				}else if(horario.get(i).getHh_inicio() == 12) {
+					out.println("<td>" + horario.get(i).getHh_inicio() + ":00 m.</td>");
+				}else {
+					out.println("<td>0" + (horario.get(i).getHh_inicio() - 12 )  + ":00 p.m. </td>");
+				}
+				
+				out.println("</tr>");    	
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			conexion.close();	
+		}
+	}
+
+	private void agendaCitasTemp(HttpServletRequest request, HttpServletResponse response, List<Cita> cita, Connection conexion) throws SQLException {
 			try (PrintWriter out = response.getWriter()){
 				try {
 					for(int i = 0; i < cita.size(); i++) {
@@ -289,6 +327,9 @@ public class ServletEspecialista extends HttpServlet {
 					e.printStackTrace(new PrintWriter(errors));
 					log.info(errors.toString());
 				}
+				finally {
+					conexion.close();	
+				}
 			} catch (IOException e1) {
 				try {
 					response.sendRedirect("Error/error.jsp");
@@ -301,7 +342,8 @@ public class ServletEspecialista extends HttpServlet {
 
 			/*****************************************************************/
 			/************** VERIFICAMOS SI EXISTE UN AUSENTISMO **************/
-			/*****************************************************************/
+			/**
+			 * @throws SQLException ***************************************************************/
 			/*
 			DatosParametrosCitas datosParamCita = new DatosParametrosCitas();
 			try {
@@ -337,7 +379,7 @@ public class ServletEspecialista extends HttpServlet {
 		}
 		*/
 	
-	private void agendaCitas(HttpServletRequest request, HttpServletResponse response, List<Cita> cita, Connection conexion) throws IOException {
+	private void agendaCitas(HttpServletRequest request, HttpServletResponse response, List<Cita> cita, Connection conexion) throws IOException, SQLException {
 		if (conexion!=null) {
 			try (PrintWriter out = response.getWriter()){
 				try {
@@ -380,6 +422,8 @@ public class ServletEspecialista extends HttpServlet {
 					StringWriter errors = new StringWriter();
 					e.printStackTrace(new PrintWriter(errors));
 					log.info(errors.toString());
+				}finally {
+					conexion.close();	
 				}
 			}	
 		}else {
@@ -388,7 +432,7 @@ public class ServletEspecialista extends HttpServlet {
 		
 	}
 	
-	private void historialCitas(HttpServletRequest request, HttpServletResponse response, int cedulaEmpleado, Connection conexion) throws IOException {
+	private void historialCitas(HttpServletRequest request, HttpServletResponse response, int cedulaEmpleado, Connection conexion) throws IOException, SQLException {
 		DatosCitaMedica DatosCita = new DatosCitaMedica(cedulaEmpleado,conexion);
 		if (conexion!=null) {
 			try (PrintWriter out = response.getWriter()){
@@ -437,6 +481,8 @@ public class ServletEspecialista extends HttpServlet {
 					StringWriter errors = new StringWriter();
 					e.printStackTrace(new PrintWriter(errors));
 					log.info(errors.toString());
+				}finally {
+					conexion.close();	
 				}
 			}
 		}else {
@@ -445,7 +491,7 @@ public class ServletEspecialista extends HttpServlet {
 		
 	}
 	
-	private void obtenerEspecialistas(HttpServletRequest request, HttpServletResponse response, Connection conexion) {
+	private void obtenerEspecialistas(HttpServletRequest request, HttpServletResponse response, Connection conexion) throws SQLException {
 		/**
 		 * Se creó para el reporte dado que necesito la cedula y el de abajo no lo 
 		 * puedo modificar ya que va a afectar varias partes.
@@ -468,10 +514,12 @@ public class ServletEspecialista extends HttpServlet {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			conexion.close();	
 		}
 	}
 	
-	private void obtenerEspecialistas(HttpServletRequest request, HttpServletResponse response, String tipo, String turno, Connection conexion) throws IOException {
+	private void obtenerEspecialistas(HttpServletRequest request, HttpServletResponse response, String tipo, String turno, Connection conexion) throws IOException, SQLException {
 		try (PrintWriter out = response.getWriter()){
 			try {
 				if((tipo == "" && turno == "") || (tipo == null && turno == null)) {
@@ -512,6 +560,8 @@ public class ServletEspecialista extends HttpServlet {
 				StringWriter errors = new StringWriter();
 				e.printStackTrace(new PrintWriter(errors));
 				log.info(errors.toString());
+			}finally {
+				conexion.close();	
 			}
 		}
 	}

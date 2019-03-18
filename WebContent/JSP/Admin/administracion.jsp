@@ -106,7 +106,7 @@
 					<div id="param" class="panel-collapse collapse">
 						<ul class="list-group">
 							<li class="list-group-item" ><a href="#;" id="cargaUnica" >Carga Unica</a></li>
-							<!-- <li class="list-group-item" ><a href="#;" id="cargaIndividual" >Carga Individual</a></li> -->
+							<li class="list-group-item" ><a href="#;" id="cargaIndividual" >Carga Individual</a></li>
 							<!-- <li class="list-group-item" ><a href="#;" id="eliminaHorarios" >Horarios</a></li> -->
 						</ul>
 					</div>

@@ -1,5 +1,6 @@
 package controlador;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.json.JsonObject;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -97,6 +99,25 @@ public class ServletAusentismo extends HttpServlet {
 				e.printStackTrace();
 			}
 			break; 
+		case "prueba":
+			try {
+				respuesta(request,response);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			break;
+		}
+	}
+
+	private void respuesta(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+		try (PrintWriter out = response.getWriter()){
+			String valor = request.getParameter("json.nombre");
+			out.print(valor);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
@@ -219,21 +240,28 @@ public class ServletAusentismo extends HttpServlet {
 				for(int i = 0; i < datos.size(); i++) {
 				
 					/* cargamos los datos del medico*/
-					out.println("<div class='col-sm-4'>");
+					out.println("<div class='col-sm-3'>");
 					out.println("<div class='form-group'>");
 					out.println("<label for='nb_especialista'>Nombre Especialista</label>");
 					out.println("<input type='text' id='nb_especialista' class='form-control' disabled='disabled' name='nb_especialista' value='" + datos.get(i).getNb_medico() + "'>" );
 					out.println("</div>");
 					out.println("</div>");
 					
-					out.println("<div class='col-sm-1'>");
+					out.println("<div class='col-sm-2'>");
 					out.println("<div class='form-group'>");
-					out.println("<label for='in_tipo_especial' style='text-align: right;'>Tipo</label>");
-					out.println("<input type='text' id='in_tipo_especial' class='form-control' disabled='disabled' name='in_tipo_especial' value='" + datos.get(i).getIn_especialidad() + "'>");
+					out.println("<label for='in_especialidad' style='text-align: right;'>Especialidad</label>");
+					out.println("<input type='text' id='in_especialidad' class='form-control' disabled='disabled' name='in_especialidad' value='" + datos.get(i).getIn_especialidad() + "'>");
 					out.println("</div>");
 					out.println("</div>");
 					
-					out.println("<div class='col-sm-5'>");
+					out.println("<div class='col-sm-2'>");
+					out.println("<div class='form-group'>");
+					out.println("<label for='in_turno' style='text-align: right;'>Turno</label>");
+					out.println("<input type='text' id='in_turno' class='form-control' disabled='disabled' name='in_turno' value='" + datos.get(i).getIn_turno() + "'>");
+					out.println("</div>");
+					out.println("</div>");
+					
+					out.println("<div class='col-sm-3'>");
 					out.println("<div class='form-group'>");
 					out.println("<label for='nb_tipo_especial' style='text-align: right;'>Tipo Especialidad</label>");
 					out.println("<input type='text' id='nb_tipo_especial' class='form-control' disabled='disabled' name='nb_tipo_especial' value='" + datos.get(i).getNb_especialidad()+ "'>");

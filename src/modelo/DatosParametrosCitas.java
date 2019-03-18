@@ -25,6 +25,11 @@ public class DatosParametrosCitas{
 		this.conexion = conexion;
 	}
 	
+	public DatosParametrosCitas(ParametroCita param, Connection conexion) {
+		this.conexion = conexion;
+		this.param = param;
+	}
+
 	public ArrayList<String> getHorario(ParametroCita paramCita) {
 		int hora_ini = paramCita.getHh_inicio();
 		int cantidadCita = paramCita.getNu_citas();
@@ -63,7 +68,33 @@ public class DatosParametrosCitas{
 		
 		return listado;
 	}
-	
+	public boolean actualizaParametros(Connection conexion) throws SQLException {
+		try {
+			String sql = "update salud.cm_param_horario "
+						+ "set nu_citas = ?, "
+						+ "nu_intervalo = ?, "
+						+ "hh_inicio = ? "
+						+ "where ci_especialista = ?";
+			paramHorario = conexion.prepareStatement(sql);
+			
+			paramHorario.setInt(1, param.getNu_citas());
+			paramHorario.setInt(2, param.getNu_intervalo());
+			paramHorario.setInt(3, param.getHh_inicio());
+			paramHorario.setInt(4, param.getCi_especialista());
+			
+			paramHorario.executeUpdate();
+			
+		} catch (Exception e) {
+			StringWriter errors = new StringWriter();
+			e.printStackTrace(new PrintWriter(errors));
+			log.info(errors.toString());
+			return false;
+		} finally {
+			paramHorario.close();
+		}
+		return true;
+		
+	}
 	public boolean insertaParametros(ParametroCita paramCita, List<Medico> cedulaMedicos) throws SQLException {
 		try {
 			//Creamos la conexion

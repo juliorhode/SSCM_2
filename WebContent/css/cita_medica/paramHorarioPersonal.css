@@ -1,0 +1,38 @@
+#contenido{
+	margin-top: 20px;
+	height: auto;
+}
+.col-sm-11{
+ margin-left: 1%;
+}
+
+th,td{
+	text-align: center;
+}
+#tablaHorario, #generaHorario{
+	margin-left: 50%;
+	margin-right: 50%;
+}
+#generaHorario{
+	margin-top: 5%;
+	margin-left: 45%;
+	margin-right: 45%;
+}
+#laterales{
+	height: 688px;
+}
+
+#nu_intervalo{
+	background-color: #ffffff;
+}
+
+@media screen and (max-width: 769px) {
+	#tablaHorario {
+		margin-left: 50%;
+		margin-right: 50%;
+	}
+	#laterales{
+		height: 600px;
+	}
+	
+}

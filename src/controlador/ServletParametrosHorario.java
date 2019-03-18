@@ -61,29 +61,44 @@ public class ServletParametrosHorario extends HttpServlet {
 		nu_citas 			= Integer.parseInt(request.getParameter("nu_citas"));
 		nu_intervalo 		= Integer.parseInt(request.getParameter("nu_intervalo"));
 		in_especialidad 	= request.getParameter("in_especialidad");
-		hora_inicio 		= Integer.parseInt(request.getParameter("hora_inicio"));
+		hora_inicio 		= Integer.parseInt(request.getParameter("hh_inicio"));
 		in_turno 			= request.getParameter("in_turno");
 		
 		try {
 			HttpSession sesion = request.getSession(false);
-			conexion = (Connection) sesion.getAttribute("pool");	
-			if (conexion.isClosed()) {
-				request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);
-			}else {
-				//Enviamos los datos al Bean ParametroCita
+			//conexion = (Connection) sesion.getAttribute("pool");	
+			//if (conexion.isClosed()) {
+			//	request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);
+			//}else {
+			ServletConexion sc = new ServletConexion();
+			conexion = sc.getConexion();
+			sesion.setAttribute("pool", conexion);
+				//Instanciamos el Bean
 				param = new ParametroCita();
-				param.setNu_citas(nu_citas);
-				param.setNu_intervalo(nu_intervalo);
-				param.setIn_especialidad(in_especialidad);
-				param.setHh_inicio(hora_inicio);
-				
 				//Enviamos al modelo DatosParametrosCitas el objeto del bean ParametroCita
 				try {
 					switch(parametro) {
 						case "unica":
+							//Enviamos los datos al Bean ParametroCita
+							param.setNu_citas(nu_citas);
+							param.setNu_intervalo(nu_intervalo);
+							param.setIn_especialidad(in_especialidad);
+							param.setHh_inicio(hora_inicio);
 							obetenerHorarioGenerado(request,response,in_especialidad,in_turno);
 							break;
 						case "individual":
+							cedula_especialista = Integer.parseInt(request.getParameter("ci_especialista"));
+							nb_especialista = request.getParameter("nb_especialista");
+							
+							param.setCi_especialista(cedula_especialista);
+							param.setNb_especialidad(nb_especialista);
+							param.setHh_inicio(hora_inicio);
+							param.setNu_citas(nu_citas);
+							param.setNu_intervalo(nu_intervalo);
+							param.setIn_especialidad(in_especialidad);
+							param.setIn_turno(in_turno);
+													
+							actualizarHorarioGenerado(request,response,param);
 							break;
 						case "verifica":
 							//verificarCita(request, response, cedula_empleado, fecha_cita, tipo_cita);
@@ -94,7 +109,7 @@ public class ServletParametrosHorario extends HttpServlet {
 					e.printStackTrace(new PrintWriter(errors));
 					log.info(errors.toString());
 				}
-			}
+			//}
 		} catch (Exception e) {
 			// TODO: handle exception
 			request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response);
@@ -103,6 +118,22 @@ public class ServletParametrosHorario extends HttpServlet {
 		
 	}
 	
+	private void actualizarHorarioGenerado(HttpServletRequest request, HttpServletResponse response, ParametroCita param) throws IOException {
+		modeloParametros = new DatosParametrosCitas(param,conexion);
+		try (PrintWriter out = response.getWriter()){
+			boolean flag = modeloParametros.actualizaParametros(conexion);
+			if (flag == true) {
+				out.println("<script>$.alert({title: 'Actualizacion de horario',content: 'Se realizó la actualizacion con éxito',type: 'blue',theme: 'bootstrap',});</script>");	
+			}else {
+				out.println("<script>$.alert({title: 'Actualizacion de horario',content: 'No se pudo realizar la actualización',type: 'red',theme: 'bootstrap',});</script>");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	private void obetenerHorarioGenerado(HttpServletRequest request, HttpServletResponse response, String in_especialidad, String in_turno) throws SQLException, IOException {
 		// TODO Auto-generated method stub
 		try (PrintWriter out = response.getWriter()) {
@@ -178,6 +209,7 @@ public class ServletParametrosHorario extends HttpServlet {
 	private String parametro;
 	private int cedula_empleado;
 	private int cedula_especialista;
+	private String nb_especialista;
 	private int nu_citas;
 	private int nu_intervalo;
 	private String in_turno;

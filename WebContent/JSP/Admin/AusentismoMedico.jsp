@@ -61,6 +61,26 @@
             	}
             });
             
+            $("#agregaAusentismo").click(function(){
+            	var json = {nombre : "Julio", apellido : "Ferrer"};
+            	$.ajax({
+                    type: "POST",
+                    url: "ServletAusentismo",
+                    data: {
+                    	parametro 	: "prueba",
+                    	json		: json
+                    },
+                    success: function( result ) {
+                        alert(result);
+                    }
+                });
+            
+            
+            
+            
+        	});
+            
+            
         });
         
         function listadoMedicosModal(){
@@ -118,9 +138,9 @@
             $("#tablaDias").append("<table><tr>");
             for (var i=1; i  < diasMes + 1; i++){
                 if (i < 10) {
-                    $("#tablaDias").append("<td><td style='padding: 10px;text-align: center;color:#335f7d '><input type='checkbox' value='0" + i + "'><br><label>"+ diaSemana[i-1] +" 0"+i+"</label></td>");
+                    $("#tablaDias").append("<td><td style='padding: 10px;text-align: center;color:#335f7d '><input type='checkbox' name = 'chkDiaMes' value='0" + i + "'><br><label>"+ diaSemana[i-1] +" 0"+i+"</label></td>");
                 }else{
-                    $("#tablaDias").append("<td><td style='padding: 10px;text-align: center;color:#335f7d '><input type='checkbox' value='" + i + "'><br><label>"+ diaSemana[i-1] +" "+i+"</label></td>");
+                    $("#tablaDias").append("<td><td style='padding: 10px;text-align: center;color:#335f7d '><input type='checkbox' name = 'chkDiaMes' value='" + i + "'><br><label>"+ diaSemana[i-1] +" "+i+"</label></td>");
                 }
                 /*esto se realiza para cerrar la fila cada 7 dias y aperturar una nueva Fila*/
                 
@@ -248,7 +268,7 @@
             </div>
  			<div class="col-sm-6">
 				<!--style="margin-left: 35%;" MANEJARLO CON @MEDIA SCREEN-->
-				<button  type="button"  style=" margin-left:100%; margin-top: 3%;" id="agregaAusentismo" name="agregaAusentismo" onclick="ausentismo()" class="btn btn-success">Guardar</button>
+				<button  type="button"  style=" margin-left:100%; margin-top: 3%;" id="agregaAusentismo" name="agregaAusentismo" class="btn btn-success">Guardar</button>
 			</div>
 			<div class="col-sm-12" id="respuesta">
 				<!--style="margin-left: 35%;" MANEJARLO CON @MEDIA SCREEN-->

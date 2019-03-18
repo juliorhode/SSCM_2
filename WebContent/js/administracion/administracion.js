@@ -20,7 +20,7 @@ function inicio(){
 	});
 		
 	$("#cargaIndividual").click(function(){
-		
+		$("#cuerpo").load('JSP/Admin/ParametroHorarioPersonal.jsp');
 	});
 	
 	$("#eliminaHorarios").click(function(){
