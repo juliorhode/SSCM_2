@@ -146,6 +146,16 @@ function actualizaParametros(){
 		  },
 		  success: function( result ) {
 		    $( "#alerta" ).html( result );
+		    listaHorario();
+		    $("#hora_inicio").val("");
+		    
+		    $("#nu_citas").val("");
+			$("#nu_citas").attr("disabled","disabled");
+			
+			$("#nu_intervalo").val("");
+			$("#nu_intervalo").attr("disabled","disabled");
+			
+			$("#generaHorario").hide();
 		  }
 		});
 	/*

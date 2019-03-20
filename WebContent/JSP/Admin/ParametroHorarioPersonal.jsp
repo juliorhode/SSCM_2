@@ -46,7 +46,7 @@
 				</div>
 			</div><!-- Fin datos especialista -->
 		</div>
-		<div class="col-sm-12" id="panelHorario">
+		<div class="col-sm-12" id="panelHorario" >
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title" align="center">Horario registrado</h4>

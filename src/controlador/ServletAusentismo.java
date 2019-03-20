@@ -240,28 +240,28 @@ public class ServletAusentismo extends HttpServlet {
 				for(int i = 0; i < datos.size(); i++) {
 				
 					/* cargamos los datos del medico*/
-					out.println("<div class='col-sm-3'>");
+					out.println("<div class='col-sm-4'>");
 					out.println("<div class='form-group'>");
 					out.println("<label for='nb_especialista'>Nombre Especialista</label>");
 					out.println("<input type='text' id='nb_especialista' class='form-control' disabled='disabled' name='nb_especialista' value='" + datos.get(i).getNb_medico() + "'>" );
 					out.println("</div>");
 					out.println("</div>");
 					
-					out.println("<div class='col-sm-2'>");
+					out.println("<div class='col-sm-2' hidden='true'>");
 					out.println("<div class='form-group'>");
 					out.println("<label for='in_especialidad' style='text-align: right;'>Especialidad</label>");
 					out.println("<input type='text' id='in_especialidad' class='form-control' disabled='disabled' name='in_especialidad' value='" + datos.get(i).getIn_especialidad() + "'>");
 					out.println("</div>");
 					out.println("</div>");
 					
-					out.println("<div class='col-sm-2'>");
+					out.println("<div class='col-sm-2' >");
 					out.println("<div class='form-group'>");
 					out.println("<label for='in_turno' style='text-align: right;'>Turno</label>");
 					out.println("<input type='text' id='in_turno' class='form-control' disabled='disabled' name='in_turno' value='" + datos.get(i).getIn_turno() + "'>");
 					out.println("</div>");
 					out.println("</div>");
 					
-					out.println("<div class='col-sm-3'>");
+					out.println("<div class='col-sm-3' >");
 					out.println("<div class='form-group'>");
 					out.println("<label for='nb_tipo_especial' style='text-align: right;'>Tipo Especialidad</label>");
 					out.println("<input type='text' id='nb_tipo_especial' class='form-control' disabled='disabled' name='nb_tipo_especial' value='" + datos.get(i).getNb_especialidad()+ "'>");
