@@ -64,7 +64,7 @@ public class ServletAusentismo extends HttpServlet {
 		ServletConexion sc = new ServletConexion();
 		conexion = sc.getConexion();
 		sesion.setAttribute("pool", conexion);
-			
+		co_cia_fisica = (String) sesion.getAttribute("co_cia_fisica");
 		int cedula_especialista;
 		switch (parametro) {
 		case "buscaMedico":
@@ -89,7 +89,7 @@ public class ServletAusentismo extends HttpServlet {
 			break;
 		case "medicoModal":
 			try {
-				buscaMedicosModal(request,response);
+				buscaMedicosModal(request,response,co_cia_fisica);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				/*
@@ -129,9 +129,10 @@ public class ServletAusentismo extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void buscaMedicosModal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void buscaMedicosModal(HttpServletRequest request, HttpServletResponse response, String co_cia_fisica) throws Exception {
 		// TODO Auto-generated method stub
-		medico = new DatosMedico(conexion);
+		medico = new DatosMedico(co_cia_fisica,conexion);
+		
 		List<Medico> datos = medico.getTodosMedicos();
 		try (PrintWriter out = response.getWriter()){
 				
@@ -295,5 +296,6 @@ public class ServletAusentismo extends HttpServlet {
 	private String txt_motivo;
 	private String nb_usuario;
 	private String parametro;
+	private String co_cia_fisica;
 	
 }

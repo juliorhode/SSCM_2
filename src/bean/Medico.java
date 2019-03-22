@@ -84,6 +84,12 @@ public class Medico {
 	public void setNb_especialidad(String nb_especialidad) {
 		this.nb_especialidad = nb_especialidad;
 	}
+	public String getCo_cia_fisica() {
+		return co_cia_fisica;
+	}
+	public void setCo_cia_fisica(String co_cia_fisica) {
+		this.co_cia_fisica = co_cia_fisica;
+	}
 
 	/******************************************/
 	/***********Variables de clase*************/
@@ -102,4 +108,5 @@ public class Medico {
 	private String nb_turno;
 	private String in_especialidad;
 	private String nb_especialidad;
+	private String co_cia_fisica;
 }

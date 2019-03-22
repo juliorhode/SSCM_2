@@ -84,6 +84,12 @@ public class Empleado {
 	public void setNb_identificacion(String nb_identificacion) {
 		this.nb_identificacion = nb_identificacion;
 	}
+	public String getCo_cia_fisica() {
+		return co_cia_fisica;
+	}
+	public void setCo_cia_fisica(String co_cia_fisica) {
+		this.co_cia_fisica = co_cia_fisica;
+	}
 
 	/******************************************/
 	/***********Variables de clase*************/
@@ -101,5 +107,6 @@ public class Empleado {
 	private String sexo;
 	private String nb_sexo;
 	private String nb_identificacion;
+	private String co_cia_fisica;
 	
 }

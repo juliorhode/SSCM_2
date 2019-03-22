@@ -69,8 +69,11 @@ public class ServletReporte extends HttpServlet {
 			context = new InitialContext();
 			datasource = (DataSource)context.lookup("jdbc/pool");
 			conexion = datasource.getConnection();
+			System.out.println(datasource.getConnection().getClientInfo());
+			
 			
 			tipoCita="";
+			co_cia_fisica = request.getParameter("co_cia_fisica");
 			medico=request.getParameter("optMedico");
 			fecha= request.getParameter("fecha");
 			DatosCitaMedica agendaTemp = new DatosCitaMedica(conexion);
@@ -197,6 +200,7 @@ public class ServletReporte extends HttpServlet {
 	private InitialContext initialcontext;
 	private Context context;
 	
+	private String co_cia_fisica;
 	private String tipoCita ="";
 	private String medico ="";
 	private String fecha;

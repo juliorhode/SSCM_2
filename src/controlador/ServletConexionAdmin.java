@@ -75,7 +75,7 @@ public class ServletConexionAdmin extends HttpServlet {
 		try {
 			Class.forName(classname);
 			sesion = request.getSession();
-			
+			System.out.println(sesion.getAttribute("usuario"));
 			if(sesion.getAttribute("usuario") == null) {
 				sesion.invalidate();
 				if(conexion!= null) {
@@ -94,8 +94,10 @@ public class ServletConexionAdmin extends HttpServlet {
 					rs = st.executeQuery(sqlBusqueda);
 					
 					System.out.println("3) Asignamos la conexion de la sesion");
+					co_cia_fisica = getCodigoFisico(username,conexion);
 					sesion = request.getSession();
 					sesion.setAttribute("usuario", username);
+					sesion.setAttribute("co_cia_fisica", co_cia_fisica);
 					sesion.setAttribute("pool", conexion);
 					//if(rs.next() || rs==null) {
 						System.out.println("4) Redireccionamos a la pagina principal");
@@ -134,8 +136,10 @@ public class ServletConexionAdmin extends HttpServlet {
 					rs = st.executeQuery(sqlBusqueda);
 					
 					System.out.println("3) Asignamos la conexion de la sesion");
+					co_cia_fisica = getCodigoFisico(username,conexion);
 					sesion = request.getSession();
 					sesion.setAttribute("usuario", username);
+					sesion.setAttribute("co_cia_fisica", co_cia_fisica);
 					sesion.setAttribute("pool", conexion);
 					//if(rs.next() || rs==null) {
 						System.out.println("4) Redireccionamos a la pagina principal");
@@ -154,6 +158,29 @@ public class ServletConexionAdmin extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	private String getCodigoFisico(String username, Connection conexion) {
+		try {
+			st = conexion.createStatement();
+			
+			String sql = "select emp.co_cia_fisica, ed.co_user_id "
+					   + "from todos_empleados emp "
+					   + "join empleado_direccion ed on ed.nu_cedula = emp.cedula "
+					   + "where ed.co_user_id ='" + username + "'";
+					
+			rs = st.executeQuery(sql);
+			if(rs.next()) {
+				co_cia_fisica = rs.getString("co_cia_fisica");	
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return co_cia_fisica;
+		
+	}
 			
 			
 	private String username;
@@ -165,6 +192,7 @@ public class ServletConexionAdmin extends HttpServlet {
 	private String classname;
 	private String url;
 	private Connection conexion;
+	private String co_cia_fisica;
 	
 	private HttpSession sesion;
 	private Statement  st;

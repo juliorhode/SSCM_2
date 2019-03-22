@@ -23,12 +23,26 @@ public class DatosMedico {
 		super();
 		this.conexion = conexion;
 	}
-
+	
+	public DatosMedico(String co_cia_fisica, Connection conexion) {
+		super();
+		this.conexion = conexion;
+		this.co_cia_fisica = co_cia_fisica;
+	}
 	public DatosMedico(String in_especialidad, String in_turno, Connection conexion) {
 		super();
 		this.in_especialidad = in_especialidad;
 		this.in_turno = in_turno;
 		this.conexion = conexion;
+	}
+	
+	public DatosMedico(String in_especialidad, String in_turno, String co_cia_fisica, Connection conexion, String usuario) {
+		super();
+		this.in_especialidad = in_especialidad;
+		this.in_turno = in_turno;
+		this.conexion = conexion;
+		this.co_cia_fisica = co_cia_fisica;
+		this.usuario = usuario;
 	}
 	
 	public DatosMedico(String fechaCita, int cedulaMedico, Connection conexion) {
@@ -159,7 +173,9 @@ public class DatosMedico {
 		String MedSql = "select "
 				  + "hh_cita "
 			  + "from salud.cm_cita_medica "
-			  + "where ci_especialista = " + cedulaMedico + " and TO_CHAR(TRUNC(fe_cita),'DD/MM/YYYY') = '" + fechaCita + "' and st_cita = 'S' order by hh_cita asc";
+			  + "where ci_especialista = " + cedulaMedico + " "
+			      + "and TO_CHAR(TRUNC(fe_cita),'DD/MM/YYYY') = '" + fechaCita + "' "
+			      + "and st_cita = 'S' order by hh_cita asc";
 		cursor = buscaMedico.executeQuery(MedSql);
 
 		while(cursor.next()) {
@@ -201,7 +217,10 @@ public class DatosMedico {
 	      		+ "end) nb_medico "
 	      + "from personal.medicos med "
 	      + "join personal.todos_empleados emp on med.cedula = emp.cedula "
-	      + "where med.cedula = '" + ci_especialidad + "' and med.situacion!='E' and med.in_especialidad is not null and emp.codigo_cia = '01'";
+	      + "where med.cedula = '" + ci_especialidad + "' "
+	      		+ "and med.situacion!='E' "
+	      		+ "and med.in_especialidad is not null "
+	      		+ "and emp.codigo_cia = '01'";
 
 		cursor = buscaMedico.executeQuery(MedSql);
 		if(cursor.next()) {
@@ -215,6 +234,7 @@ public class DatosMedico {
 		return nb_especialidad;
 		
 	}
+	/*Listado medico en cita medica*/
 	public List<String> getNombreCompleto() throws SQLException {
 		List<String> nombre = new ArrayList();
 		//conexion   = null;
@@ -231,7 +251,11 @@ public class DatosMedico {
 	      			+ "else upper(emp.apellido1)|| ' ' ||upper(emp.apellido2)|| ', '||upper(emp.nombre1)||' '||upper(emp.nombre2) "
 	      		+ "end) nb_medico "
 	      + "from personal.medicos med "
-	      + "join personal.todos_empleados emp on med.cedula = emp.cedula where med.situacion!='E' and med.in_especialidad is not null and emp.codigo_cia = '01' order by nb_medico asc";
+	      + "join personal.todos_empleados emp on med.cedula = emp.cedula "
+	      + "where med.situacion!='E' "
+	      	    + "and med.in_especialidad is not null "
+	      	    + "and emp.codigo_cia ='" + co_cia_fisica +"' "
+	      + "order by nb_medico asc";
 
 		cursor = buscaMedico.executeQuery(MedSql);
 		while(cursor.next()) {
@@ -245,6 +269,8 @@ public class DatosMedico {
 		return nombre;
 		
 	}
+	
+	/*Se usa para cargar los medicos en ventana modal y reporte*/
 	public List<Medico> getTodosMedicos() throws Exception{
 		//Instanciamos para crea una lista de medicos
 		listaMedico = new ArrayList();
@@ -267,10 +293,15 @@ public class DatosMedico {
 						+ "end) nb_medico, "
 						+ "in_clase_medico, "
 						+ "med.in_especialidad, " 
-						+ "initcap(decode(med.in_especialidad,'M','MEDICA','O','ODONTOLOGIA','N','NUTRICION','F','FISIOTERAPIA')) as nb_especialidad "  
+						+ "initcap(decode(med.in_especialidad,'M','MEDICA','O','ODONTOLOGIA','N','NUTRICION','F','FISIOTERAPIA','E','ESPECIAL')) as nb_especialidad "  
 				   + "from personal.medicos med "
-				   + "join personal.todos_empleados emp on med.cedula = emp.cedula where med.situacion!='E' and med.in_especialidad is not null and emp.codigo_cia = '01' order by nb_especialidad asc";
+				   + "join personal.todos_empleados emp on med.cedula = emp.cedula "
+				   + "where med.situacion!='E' "
+				   	  	 + "and med.in_especialidad is not null "
+				   	  	 + "and emp.codigo_cia = '" + co_cia_fisica + "'"
+				   + "order by nb_especialidad asc";
 		
+
 		cursor = buscaMedico.executeQuery(MedSql);
 		while(cursor.next()) {
 			cedula 				= 	cursor.getInt("cedula");
@@ -312,10 +343,13 @@ public class DatosMedico {
 						+ "med.in_clase_medico, "
 						+ "med.in_turno, "
 						+ "med.in_especialidad, " 
-						+ "initcap(decode(med.in_especialidad,'M','MEDICA','O','ODONTOLOGIA','N','NUTRICION','F','FISIOTERAPIA')) as nb_especialidad "  
+						+ "initcap(decode(med.in_especialidad,'M','MEDICA','O','ODONTOLOGIA','N','NUTRICION','F','FISIOTERAPIA','E','ESPECIAL')) as nb_especialidad "  
 				   + "from personal.medicos med "
 				   + "join personal.todos_empleados emp on med.cedula = emp.cedula " 
-				   + "where med.cedula  = ? and med.situacion!='E' and med.in_especialidad is not null and emp.codigo_cia = '01' ";
+				   + "where med.cedula  = ? "
+				   		 + "and med.situacion!='E' "
+				   		 + "and med.in_especialidad is not null "
+				   		 + "and emp.codigo_cia = '01' ";
 		
 		//Crear Statement
 		buscaMed = conexion.prepareStatement(MedSql);	
@@ -361,7 +395,7 @@ public class DatosMedico {
 		buscaMedico = conexion.createStatement();
 		
 		//	Crear la sentencia SQL
-		
+		if(usuario!=null) {
 			MedSql = "select "  
 		    		+ "med.cedula, "
 		    		+ "med.situacion, "
@@ -375,16 +409,62 @@ public class DatosMedico {
 		      			+ "when upper(emp.apellido2) is null then upper(emp.apellido1)|| ', '||upper(emp.nombre1)||' ' || upper(emp.nombre2) "
 		      			+ "else upper(emp.apellido1)|| ' ' ||upper(emp.apellido2)|| ', '||upper(emp.nombre1)||' '||upper(emp.nombre2) "
 		      		+ "end) nb_medico, "
+		      		+ "emp.co_cia_fisica, "
 		      		+ "med.in_clase_medico, " 
 		      		+ "initcap(decode(med.in_clase_medico,'M','MEDICA','O','ODONTOLOGIA')) as nb_clase_medico, "
 		      		+ "med.in_turno, "
 		      		+ "initcap(decode(med.in_turno,'M','MAÑANA','T','TARDE')) as nb_turno, "
 		      		+ "med.in_especialidad, "
-		      		+ "initcap(decode(med.in_especialidad,'M','MEDICA','O','ODONTOLOGIA','N','NUTRICION','F','FISIOTERAPIA')) as nb_especialidad " 
+		      		+ "initcap(decode(med.in_especialidad,'M','MEDICA','O','ODONTOLOGIA','N','NUTRICION','F','FISIOTERAPIA','E','ESPECIAL')) as nb_especialidad " 
+		      + "from personal.medicos med "
+		      + "join personal.todos_empleados emp on med.cedula = emp.cedula ";
+			
+			if(in_especialidad.equals("M")) {
+				MedSql = MedSql 
+						+ "where emp.codigo_cia ='" + co_cia_fisica + "' "
+					    	+ "and med.situacion!='E' " 
+					      	+ "and med.in_especialidad in('" + in_especialidad + "','E') "
+					      	+ "and in_turno = '"+ in_turno +"' "
+					      + "order by nb_medico asc";
+			}else {
+				MedSql = MedSql 
+						+ "where emp.codigo_cia ='" + co_cia_fisica + "' "
+					    	+ "and med.situacion!='E' " 
+					      	+ "and med.in_especialidad = '" + in_especialidad + "' "
+					      	+ "and in_turno = '"+ in_turno +"' "
+					      + "order by nb_medico asc";
+			}
+		
+		}else {
+			MedSql = "select "  
+		    		+ "med.cedula, "
+		    		+ "med.situacion, "
+		    		+ "initcap(emp.nombre1) as nombre1, "
+		    		+ "initcap(emp.nombre2) as nombre2, " 
+		    		+ "initcap(emp.apellido1) as apellido1, "
+		    		+ "initcap(emp.apellido2) as apellido2, "
+		    		+ "initcap("
+		    		+ "case "
+		      			+ "when upper(emp.nombre2) is null then upper(emp.apellido1)||' '||upper(emp.apellido2)||', '||upper(emp.nombre1) "
+		      			+ "when upper(emp.apellido2) is null then upper(emp.apellido1)|| ', '||upper(emp.nombre1)||' ' || upper(emp.nombre2) "
+		      			+ "else upper(emp.apellido1)|| ' ' ||upper(emp.apellido2)|| ', '||upper(emp.nombre1)||' '||upper(emp.nombre2) "
+		      		+ "end) nb_medico, "
+		      		+ "emp.co_cia_fisica, "
+		      		+ "med.in_clase_medico, " 
+		      		+ "initcap(decode(med.in_clase_medico,'M','MEDICA','O','ODONTOLOGIA')) as nb_clase_medico, "
+		      		+ "med.in_turno, "
+		      		+ "initcap(decode(med.in_turno,'M','MAÑANA','T','TARDE')) as nb_turno, "
+		      		+ "med.in_especialidad, "
+		      		+ "initcap(decode(med.in_especialidad,'M','MEDICA','O','ODONTOLOGIA','N','NUTRICION','F','FISIOTERAPIA','E','ESPECIAL')) as nb_especialidad " 
 		      + "from personal.medicos med "
 		      + "join personal.todos_empleados emp on med.cedula = emp.cedula "
-		      + "where med.in_especialidad = '" + in_especialidad + "' and in_turno = '"+ in_turno +"' "
-		      		 + "and med.situacion!='E' and med.in_especialidad is not null and emp.codigo_cia = '01' order by nb_medico asc";
+		      + "where emp.codigo_cia ='" + co_cia_fisica + "' "
+		      	+ "and med.situacion!='E' "
+		      	+ "and med.in_especialidad = '" + in_especialidad + "' "
+		      	+ "and in_turno = '"+ in_turno +"' "
+		      	+ "order by nb_medico asc";
+		}
+			
 	
 		cursor = buscaMedico.executeQuery(MedSql);
 		
@@ -406,6 +486,7 @@ public class DatosMedico {
 			tempMed.setNb_turno			(cursor.getString("nb_turno"));
 			tempMed.setIn_especialidad	(cursor.getString("in_especialidad"));
 			tempMed.setNb_especialidad	(cursor.getString("nb_especialidad"));
+			tempMed.setCo_cia_fisica(cursor.getString("co_cia_fisica"));
 			
 			listaMedico.add(tempMed);
 		}
@@ -443,11 +524,13 @@ public class DatosMedico {
 	private String 	nb_especialidad;
 	private String 	fechaCita;
 	private int 	cedulaMedico;
+	private String co_cia_fisica;
 	
 	private String MedSql;
 	private Connection conexion   = null;
 	private Statement buscaMedico = null;
 	private PreparedStatement buscaMed     = null;
 	private ResultSet cursor 	  = null;
+	private String usuario;
 	
 }

@@ -353,28 +353,6 @@ public class DatosCitaMedica{
 		try {
 			//Establecer la conexion
 			//con = getConexion();
-			/*
-			String sql = "select "+
-							  "nu_solicitud, "+
-							  "st_cita, "+
-							  "ci_empleado, "+
-							  "nb_empleado, "+
-							  "ci_familiar, "+
-							  "nb_familiar, "+
-							  "in_ti_cita, "+
-							  "in_especialidad, "+
-							  "to_char(fe_cita,'dd/mm/yyyy') fe_cita, "+
-							  "hh_cita, "+
-							  "ci_especialista, "+
-							  "nb_ti_solicitud, "+
-							  "to_char(fe_atencion,'dd/mm/yyyy') fe_atencion, "+
-							  "hh_atencion, "+
-							  "nb_usuario_modific, "+
-							  "tx_dato_modificado, "+
-							  "to_char(fe_solicitud,'DD/MM/YYYY') fe_solicitud, "+
-							  "hh_solicitud "+
-					    "from salud.cm_cita_medica ";
-			*/
 			
 			String sql ="select "+
 						  "cm.nu_solicitud,"+ 
@@ -422,7 +400,7 @@ public class DatosCitaMedica{
 						pst_buscaCita.setString(1, tipo_cita);
 						pst_buscaCita.setString(2, fecha_cita);
 					}else {
-						citaSQL = sql + "where nb_ti_solicitud = ? and rownum <= 300 order by fe_cita asc, nu_solicitud asc";
+						citaSQL = sql + "where nb_ti_solicitud = ? and rownum <= 4000 order by fe_cita asc, nu_solicitud asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, tipo_cita);
 					}
@@ -433,7 +411,7 @@ public class DatosCitaMedica{
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, fecha_cita);
 					}else {
-						citaSQL = sql + "where rownum <= 300 order by fe_cita asc, hh_cita asc";
+						citaSQL = sql + "where rownum <= 4000 order by fe_cita asc, hh_cita asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);	
 					}
 					break;
@@ -445,7 +423,7 @@ public class DatosCitaMedica{
 						pst_buscaCita.setString(1, tipo_cita);
 						pst_buscaCita.setString(2, fecha_cita);
 					}else {
-						citaSQL = sql + "where in_especialidad = ? and nb_ti_solicitud!='Emergencia' and rownum <= 300 order by fe_cita asc, hh_cita asc";
+						citaSQL = sql + "where in_especialidad = ? and nb_ti_solicitud!='Emergencia' and rownum <= 4000 order by fe_cita asc, hh_cita asc";
 						pst_buscaCita = con.prepareStatement(citaSQL);
 						pst_buscaCita.setString(1, tipo_cita);
 					}

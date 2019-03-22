@@ -138,13 +138,15 @@ $("#panel-body-Tipo-Turno input").click(function(){
 	$("#FechaSolicitud").val("");
 	var tipoCita = $('input:radio[name=otpTipoCita]:checked').val();
 	var tipoTurno = $('input:radio[name=otpTipoTurno]:checked').val();
+	var co_cia_fisica = $("#co_cia_fisica").val();
 	$.ajax({
         type: "POST",
         url: "Especialista",
         data: {
-        	tipo : tipoCita,
-        	turno : tipoTurno,
-        	parametro : "listadoE",
+        	tipo 			: tipoCita,
+        	turno 			: tipoTurno,
+        	co_cia_fisica 	: co_cia_fisica,
+        	parametro 		: "listadoE",
         },
         success: function( result ) {
         	$("#form-group-Especialistas" ).html( result );

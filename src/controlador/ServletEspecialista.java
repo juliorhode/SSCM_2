@@ -45,6 +45,7 @@ public class ServletEspecialista extends HttpServlet {
 		solicitante = request.getParameter("Solicitante");
 		tipo = request.getParameter("tipo");
 		turno = request.getParameter("turno");
+		co_cia_fisica = request.getParameter("co_cia_fisica");
 		
 		tipoCita = request.getParameter("tipoCita");
 		medico   = request.getParameter("medico");
@@ -65,6 +66,11 @@ public class ServletEspecialista extends HttpServlet {
 			//}else {
 			ServletConexion sc = new ServletConexion();
 			conexion = sc.getConexion();
+			if(co_cia_fisica==null) {
+				co_cia_fisica = (String) sesion.getAttribute("co_cia_fisica");
+			}
+			usuario = (String) sesion.getAttribute("usuario");
+			
 			sesion.setAttribute("pool", conexion);
 				switch (param) {
 					case "agendaCitas"://La que le aparece al DAME
@@ -114,7 +120,7 @@ public class ServletEspecialista extends HttpServlet {
 					historialCitas(request,response,cedulaEmpleado,conexion);	
 				break;
 				case "listadoE":
-					obtenerEspecialistas(request,response,tipo, turno,conexion);	
+					obtenerEspecialistas(request,response,tipo, turno, co_cia_fisica,conexion, usuario);	
 				break;
 				case "listadoEm":
 					if (hora < 12) {
@@ -122,13 +128,15 @@ public class ServletEspecialista extends HttpServlet {
 					}else {
 						turno = "T";
 					}
-					obtenerEspecialistas(request,response,tipo, turno,conexion);
+					obtenerEspecialistas(request,response,tipo, turno, co_cia_fisica, conexion, usuario);
 				break;
 				case "medicoReporte":
-					obtenerEspecialistas(request,response,conexion);	
+					//Aqui se obtiene los medicos para reporte
+					obtenerEspecialistas(request,response,co_cia_fisica,conexion);	
 				break;
 				case "listaHorario":
 					cedulaMedico = Integer.parseInt(request.getParameter("cedula_especialista"));
+					//Horario del medico
 					muestraHorario(request,response,cedulaMedico, conexion);
 					break;
 				case "horario":
@@ -491,12 +499,12 @@ public class ServletEspecialista extends HttpServlet {
 		
 	}
 	
-	private void obtenerEspecialistas(HttpServletRequest request, HttpServletResponse response, Connection conexion) throws SQLException {
+	private void obtenerEspecialistas(HttpServletRequest request, HttpServletResponse response, String co_cia_fisica, Connection conexion) throws SQLException {
 		/**
 		 * Se creó para el reporte dado que necesito la cedula y el de abajo no lo 
 		 * puedo modificar ya que va a afectar varias partes.
 		 * */
-		DatosMedico especialistas = new DatosMedico(conexion);
+		DatosMedico especialistas = new DatosMedico(co_cia_fisica,conexion);
 		try {
 			List<Medico> med = especialistas.getTodosMedicos() ;
 			try (PrintWriter out = response.getWriter()){
@@ -519,7 +527,7 @@ public class ServletEspecialista extends HttpServlet {
 		}
 	}
 	
-	private void obtenerEspecialistas(HttpServletRequest request, HttpServletResponse response, String tipo, String turno, Connection conexion) throws IOException, SQLException {
+	private void obtenerEspecialistas(HttpServletRequest request, HttpServletResponse response, String tipo, String turno, String co_cia_fisica, Connection conexion, String usuario) throws IOException, SQLException {
 		try (PrintWriter out = response.getWriter()){
 			try {
 				if((tipo == "" && turno == "") || (tipo == null && turno == null)) {
@@ -543,7 +551,8 @@ public class ServletEspecialista extends HttpServlet {
 					out.println("});");
 					out.println("</script>");
 				}else {
-					DatosMedico especialistas = new DatosMedico(tipo, turno, conexion);
+					//Este es el listado que se le carga al select
+					DatosMedico especialistas = new DatosMedico(tipo, turno, co_cia_fisica, conexion, usuario);
 					esp = especialistas.getEspecialista();
 					out.println("<select name='listadoMedico' class='form-control' id='listadoMedico'>");
 					out.println("<option></option>");
@@ -586,11 +595,13 @@ public class ServletEspecialista extends HttpServlet {
 	private String tipoCita;
 	private String medico;
 	private String fecha;
+	private String co_cia_fisica;
 	
 	private List<Medico> esp;
 	private List<Cita> cita;
 	private ArrayList<String> horaMedico;
 	private ParametroCita paramCita;
 	private Connection conexion;
+	private String usuario;
 	
 }

@@ -71,6 +71,7 @@
 	 	 			
 	 	 			<ul class="nav navbar-nav navbar-right">
 	        			<li><h5 id="usuario_activo"> Usuario: <%=sesion.getAttribute("usuario") %></h5></li>
+	        			<li><input type="hidden" id="co_cia_fisica" value="<%=sesion.getAttribute("co_cia_fisica") %>"></li>
 	      			</ul>
 	      			<input type="hidden" id="usuario" value="<%=sesion.getAttribute("usuario") %>">
 	      			
@@ -94,7 +95,7 @@
 		      		<p data-toggle="collapse" href="#registro">Registro de Citas</p>
 					<div id="registro" class="panel-collapse collapse">
 						<ul class="list-group">
-							<!-- <li class="list-group-item" ><a href="#;" id="programadas" >Programadas</a></li>  -->
+							<li class="list-group-item" ><a href="#;" id="programadas" >Programadas</a></li>
 							<!-- <li class="list-group-item" ><a href="#;" id="cortesias" >Cortesias</a></li>  -->
 							<li class="list-group-item" ><a href="#;" id="emergencias" >Emergencias</a></li>
 						</ul>
@@ -112,9 +113,9 @@
 					</div>
 		      	</div>
 		      	
-		      	<div class="well">
-		      		 <p><a href="#;" id="ausentismo" >Registro de Ausentismo</a></p> 
-		      	</div>
+<!-- 		      	<div class="well"> -->
+<!-- 					<p><a href="#;" id="ausentismo" >Registro de Ausentismo</a></p> -->
+<!-- 		      	</div> -->
 		      	
 		      	<div class="well">
 		      		<p data-toggle="collapse" href="#agenda">Agenda Médica</p>

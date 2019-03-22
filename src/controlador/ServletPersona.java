@@ -54,6 +54,8 @@ public class ServletPersona extends HttpServlet {
 				ServletConexion sc = new ServletConexion();
 				conexion = sc.getConexion();
 				sesion.setAttribute("pool", conexion);
+				
+				
 				//request.getRequestDispatcher("JSP/Error/error.jsp").forward(request, response); 
 			//}else {
 				switch (parametro) {
@@ -87,6 +89,7 @@ public class ServletPersona extends HttpServlet {
 				case "Solicitante":
 					try (PrintWriter out = response.getWriter()){
 						modeloEmpleado = new DatosEmpleado(cedula, conexion);
+						
 						emp = modeloEmpleado.getEmpleado();
 						if(emp.isEmpty()) {
 							out.println("<script>$.alert({title: 'Busqueda de Empleado',content: 'La c&eacute;dula del empleado no existe',type: 'red',theme: 'bootstrap',});</script>");
@@ -116,6 +119,7 @@ public class ServletPersona extends HttpServlet {
 								out.println("<label>Usuario:</label><br>");
 								out.println("<input type='text' class='form-control' disabled='disabled' name='usuario' id='usuario' value='"+ emp.get(i).getCo_user_id() + "'>");
 								out.println("<br>");
+								out.println("<input type='hidden' class='form-control' disabled='disabled' name='co_cia_fisica' id='co_cia_fisica' value='"+ emp.get(i).getCo_cia_fisica() + "'>");
 								out.println("<br>");
 								out.println("<input type='button' class='btn btn-primary' value='Cambio Usuario' id='cambioUsuario' style='margin-left:5%;'>");
 								out.println("<script>$('#cuerpo').load('JSP/Usuario/CitasMedicas.jsp');$('#lateral_der').show();$('#listado_cita').show();$('#listadoCita').show();</script>");

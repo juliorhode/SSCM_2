@@ -43,7 +43,7 @@ public class DatosEmpleado{
 	/*****************************************/
 	/***********Array de Empleado*************/
 	/*****************************************/
-	
+	/*Este es el primer metodo que se invoca al colocar la cedula en el lado del cliente*/
 	public List<Empleado> getEmpleado() throws Exception{
 		
 		// Establecemos una coneccion
@@ -94,6 +94,7 @@ public class DatosEmpleado{
 								    + "emp.tx_email_bcv, "
 								    + "dir.co_user_id, "
 								    + "emp.sexo, "
+								    + "emp.co_cia_fisica, "
 								    + "decode(emp.sexo, 'M', 'Masculino', 'F', 'Femenino')as nb_sexo, "
 								    + "decode(emp.sexo, 'M', 'Sr.', 'F', 'Sra.')as nb_identificacion "
 								+ "from personal.todos_empleados emp left join personal.empleado_direccion dir on dir.nu_cedula = emp.cedula "
@@ -114,6 +115,7 @@ public class DatosEmpleado{
 								    + "'' tx_email_propio, "
 								    + "'' tx_email_bcv, "
 								    + "'' co_user_id, "
+								    + "'' co_cia_fisica, "
 								    + "in_sexo, "
 								    + "decode(in_sexo, 'M', 'Masculino', 'F', 'Femenino')as nb_sexo, "
 								    + "decode(in_sexo, 'M', 'Sr.', 'F', 'Sra.')as nb_identificacion "
@@ -147,6 +149,7 @@ public class DatosEmpleado{
 				String sexo 				= cursor.getString("sexo");
 				String nb_sexo 				= cursor.getString("nb_sexo");
 				String nb_identificacion 	= cursor.getString("nb_identificacion");
+				String co_cia_fisica		= cursor.getString("co_cia_fisica");
 				
 				// Enviamos los datos al bean Empleado por medio de sus metodos setters
 				Empleado emp = new Empleado();
@@ -163,6 +166,7 @@ public class DatosEmpleado{
 				emp.setSexo(sexo);
 				emp.setNb_sexo(nb_sexo);
 				emp.setNb_identificacion(nb_identificacion);
+				emp.setCo_cia_fisica(co_cia_fisica);
 				
 				
 				// Almacenamos todo el objeto empleado en el Array
